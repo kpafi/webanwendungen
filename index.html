@@ -25,8 +25,36 @@
     </header>
 
     <main>
-        <h1>Willkommen in der Krypto-Küche</h1>
-        <p>Rezepte für IT-Sicherheit: ...</p>
+        <section class="hero">
+            <h1>Sicherheit nach Rezept.</h1>
+            <p>Wähle aus, was du schützen willst – wir zeigen dir die passenden Rezepte.</p>
+        </section>
+    
+        <form action="rezepte.html" method="get" class="filter">
+            <div class="kachel-raster">
+    
+                <label class="kachel">
+                    <input type="checkbox" name="schutzziel" value="authentizitaet">
+                    <span class="kachel-titel">Authentizität</span>
+                    <span class="kachel-text">Die Nachricht stammt wirklich von dem, der behauptet, sie geschickt zu haben.</span>
+                </label>
+    
+                <label class="kachel">
+                    <input type="checkbox" name="schutzziel" value="vertraulichkeit">
+                    <span class="kachel-titel">Vertraulichkeit</span>
+                    <span class="kachel-text">Nur Berechtigte können die Daten lesen.</span>
+                </label>
+    
+                <label class="kachel">
+                    <input type="checkbox" name="schutzziel" value="integritaet">
+                    <span class="kachel-titel">Integrität</span>
+                    <span class="kachel-text">Die Daten wurden nicht unbemerkt verändert.</span>
+                </label>
+    
+            </div>
+    
+            <button type="submit" class="anzeigen-button">Anzeigen</button>
+        </form>
     </main>
 
     <footer class="site-footer">
