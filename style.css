@@ -1,0 +1,66 @@
+/* Grundeinstellungen */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;   /* Header oben, Main in der Mitte, Footer unten */
+}
+
+/* Header */
+.site-header {
+    display: flex;
+    justify-content: space-between;  /* Logo links, Navigation rechts */
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #000;   /* die Linie aus dem Mockup */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: inherit;
+}
+
+.site-header nav ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+}
+
+.site-header nav a {
+    text-decoration: none;
+    color: inherit;
+    width: 1;
+}
+
+.site-header nav a:hover {
+    text-decoration: underline;
+}
+
+/* Hauptbereich */
+main {
+    flex: 1;            /* nimmt den restlichen Platz ein -> Footer bleibt unten */
+    padding: 2rem;
+}
+
+/* Footer */
+.site-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-top: 1px solid #000;
+}
+
+.site-footer a {
+    color: inherit;
+}
