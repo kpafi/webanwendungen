@@ -28,40 +28,44 @@
     <main>
         <section class="hero">
             <h1>Sicherheit nach Rezept.</h1>
-            <p>Wähle aus, was du schützen willst – wir zeigen dir die passenden Rezepte.</p>
+            <p>Wähle aus, was du schützen willst</p>
         </section>
     
-        <form action="rezepte.html" method="get" class="filter">
+        
+        <form id="filter-form" class="filter">
             <div class="kachel-raster">
-    
+        
                 <label class="kachel">
-                    <input type="checkbox" name="schutzziel" value="authentizitaet">
+                    <input type="checkbox" id="check-a" name="schutzziel" value="a">
                     <span class="kachel-titel">Authentizität</span>
                     <span class="kachel-text">Die Nachricht stammt wirklich von dem, der behauptet, sie geschickt zu haben.</span>
                 </label>
-    
+        
                 <label class="kachel">
-                    <input type="checkbox" name="schutzziel" value="vertraulichkeit">
+                    <input type="checkbox" id="check-v" name="schutzziel" value="v">
                     <span class="kachel-titel">Vertraulichkeit</span>
                     <span class="kachel-text">Nur Berechtigte können die Daten lesen.</span>
                 </label>
-    
+        
                 <label class="kachel">
-                    <input type="checkbox" name="schutzziel" value="integritaet">
+                    <input type="checkbox" id="check-i" name="schutzziel" value="i">
                     <span class="kachel-titel">Integrität</span>
                     <span class="kachel-text">Die Daten wurden nicht unbemerkt verändert.</span>
                 </label>
-    
+        
             </div>
-    
+        
             <button type="submit" class="anzeigen-button">Anzeigen</button>
         </form>
+        
     </main>
 
     <footer class="site-footer">
         <p>&copy; 2026 Krypto-Küche – WBA WS 26/27</p>
         <a href="impressum.html">Impressum</a>
     </footer>
+    
+    <script src="js/filter.js"></script>
 
 </body>
 </html>
