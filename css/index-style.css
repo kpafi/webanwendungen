@@ -1,0 +1,87 @@
+/* AB HIER IST DER CSS DER INDEX.HTML*/
+/*---------------------------------------------------------------------------*/
+
+/* Startseite: Slogan */
+.hero {
+    text-align: center;
+    margin: 2rem 0 3rem;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+}
+
+/* Startseite: Filter-Kacheln */
+.kachel-raster {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.kachel {
+    display: flex;
+    flex-direction: column;     /* Titel über Text */
+    gap: 0.5rem;
+    min-height: 180px;
+    padding: 1.5rem;
+    border: 2px solid #000;
+    cursor: pointer;            /* Hand-Cursor: zeigt "klickbar" */
+}
+
+.kachel-titel {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.kachel-text {
+    color: #555;
+}
+
+/* Checkbox selbst verstecken – die Kachel IST der Schalter */
+.kachel input {
+    position: absolute;
+    opacity: 0;
+}
+
+/* Ausgewählte Kachel hervorheben */
+.kachel:has(input:checked) {
+    background-color: #000;
+    color: #fff;
+}
+
+.kachel:has(input:checked) .kachel-text {
+    color: #ddd;
+}
+
+/* Tastatur-Bedienung sichtbar machen */
+.kachel:has(input:focus-visible) {
+    outline: 3px solid #3d5afe;
+    outline-offset: 4px;
+}
+
+/* Anzeigen-Button */
+.filter {
+    text-align: center;          /* Button mittig */
+}
+
+.anzeigen-button {
+    margin-top: 2.5rem;
+    padding: 0.75rem 3rem;
+    font-size: 1.1rem;
+    border: 2px solid #000;
+    background: #fff;
+    cursor: pointer;
+}
+
+.anzeigen-button:hover {
+    background: #000;
+    color: #fff;
+}
+
+@media (max-width: 700px) {
+    .kachel-raster {
+        grid-template-columns: 1fr;
+    }
+}
