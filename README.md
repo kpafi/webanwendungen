@@ -1,3 +1,2 @@
 # webanwendungen
-# Kuti
 # Eppler
