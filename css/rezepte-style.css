@@ -1,0 +1,140 @@
+/* AB HIER IST DER CSS der Rezepte :)/
+/*---------------------------------------------------------------------------*/
+
+
+/* Startseite: Filter-Kacheln */
+.kachel-raster {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.kachel {
+    display: flex;
+    flex-direction: column;     /* Titel über Text */
+    gap: 0.5rem;
+    min-height: 180px;
+    padding: 1.5rem;
+    border: 2px solid #000;
+    cursor: pointer;            /* Hand-Cursor: zeigt "klickbar" */
+}
+
+.kachel-titel {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.kachel-text {
+    color: #555;
+}
+
+/* Checkbox selbst verstecken – die Kachel IST der Schalter */
+.kachel input {
+    position: absolute;
+    opacity: 0;
+}
+
+/* Ausgewählte Kachel hervorheben */
+.kachel:has(input:checked) {
+    background-color: #000;
+    color: #fff;
+}
+
+.kachel:has(input:checked) .kachel-text {
+    color: #ddd;
+}
+
+/* Tastatur-Bedienung sichtbar machen */
+.kachel:has(input:focus-visible) {
+    outline: 3px solid #3d5afe;
+    outline-offset: 4px;
+}
+
+/* Anzeigen-Button */
+.filter {
+    text-align: center;          /* Button mittig */
+}
+
+@media (max-width: 700px) {
+    .kachel-raster {
+        grid-template-columns: 1fr;
+    }
+}
+/*--------------------------------------------------------------------------------------------
+hier mach ich dne kleinen filter oben*/
+ 
+.kachel-rasterklein {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) auto;
+    gap: 2rem;
+    justify-content: center; /*setzt die kacheln in die mitte*/
+    margin: 0 auto 2rem;
+    max-width: 300px;
+    
+}
+
+.kachelklein {
+    display: flex;
+    flex-direction: column;     /* Titel über Text */
+    gap: 0.5rem;
+    min-height: 20px;
+    max-height: 60px;
+    padding: 0.5rem;
+    border: 1px solid #000;
+    cursor: pointer;            /* Hand-Cursor: zeigt "klickbar" */
+    min-width: 120px;
+}
+
+.kachel-titelklein {
+    font-size: 10;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+/* Checkbox selbst verstecken – die Kachel IST der Schalter */
+.kachelklein input {
+    position: absolute;
+    opacity: 0;
+}
+
+/* Ausgewählte Kachel hervorheben */
+.kachelklein:has(input:checked) {
+    background-color: #000;
+    color: #fff;
+}
+
+.kachelklein:has(input:checked) .kachel-textklein {
+    color: #ddd;
+}
+
+/* Tastatur-Bedienung sichtbar machen */
+.kachelklein:has(input:focus-visible) {
+    outline: 3px solid #3d5afe;
+    outline-offset: 4px;
+}
+
+/* Anzeigen-Button */
+.filter {
+    text-align: center;          /* Button mittig */
+}
+
+.anzeigen-buttonklein {
+    padding: 0.75rem 1rem;
+    font-size: 1.0rem;
+    border: 2px solid #000;
+    background: #fff;
+    cursor: pointer;
+}
+
+.anzeigen-buttonklein:hover {
+    background: #000;
+    color: #fff;
+
+@media (max-width: 700px) {
+    .kachel-rasterklein {
+        grid-template-columns: 1fr;
+    }
+}

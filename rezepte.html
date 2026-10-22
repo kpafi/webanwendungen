@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Krypto-Küche – Startseite</title>
     <link rel="stylesheet" href="css/global-style.css">
+    <link rel="stylesheet" href="css/rezepte-style.css">
 </head>
 <body>
 
@@ -25,8 +26,93 @@
     </header>
 
     <main>
-        <h1>Willkommen in der Krypto-Küche</h1>
-        <p>Rezepte für IT-Sicherheit: ...</p>
+
+        <form id="filter-forkmklein" class="filterklein">
+            <div class="kachel-rasterklein">
+        
+                <label class="kachelklein">
+                    <input type="checkbox" id="check-a" name="schutzziel" value="a">
+                    <span class="kachel-titelklein">Authentizität</span>
+                </label>
+        
+                <label class="kachelklein">
+                    <input type="checkbox" id="check-v" name="schutzziel" value="v">
+                    <span class="kachel-titelklein">Vertraulichkeit</span>
+                </label>
+        
+                <label class="kachelklein">
+                    <input type="checkbox" id="check-i" name="schutzziel" value="i">
+                    <span class="kachel-titelklein">Integrität</span>
+                </label>
+              <!-- ich mach erstmal ohne button   <button type="submit" class="anzeigen-buttonklein">Anzeigen</button>      -->  
+            </div>
+      
+        </form>
+        <form id="filter-form" class="filter">
+            <div class="kachel-raster">
+        
+                <button type="button" class="kachel" data-rezept="a">  <!-- ich hab die kacheln von michel als button umgeschreiben -->
+                    <span class="kachel-titel">Beispielrezept</span>
+                    <span class="kachel-text">Beispielrezept erklärung</span>
+                </button>
+        
+                <button type="button" class="kachel" data-rezept="a">
+                    <span class="kachel-titel">Beispielrezept</span>
+                    <span class="kachel-text">Beispielrezept erklärung</span>
+                </button>
+        
+                <button type="button" class="kachel" data-rezept="a">
+                    <span class="kachel-titel">Beispielrezept</span>
+                    <span class="kachel-text">Beispielrezept erklärung</span>
+                </button>
+
+                <button type="button" class="kachel" data-rezept="a">
+                    <span class="kachel-titel">Beispielrezept</span>
+                    <span class="kachel-text">Beispielrezept erklärung</span>
+                </button>
+
+                <button type="button" class="kachel" data-rezept="a">
+                    <span class="kachel-titel">Beispielrezept</span>
+                    <span class="kachel-text">Beispielrezept erklärung</span>
+                </button>                
+
+                <button type="button" class="kachel" data-rezept="a">
+                    <span class="kachel-titel">Beispielrezept</span>
+                    <span class="kachel-text">Beispielrezept erklärung</span>
+                </button>
+
+                <button type="button" class="kachel" data-rezept="a">
+                    <span class="kachel-titel">Beispielrezept</span>
+                    <span class="kachel-text">Beispielrezept erklärung</span>
+                </button>
+
+                <button type="button" class="kachel" data-rezept="a">
+                    <span class="kachel-titel">Beispielrezept</span>
+                    <span class="kachel-text">Beispielrezept erklärung</span>
+                </button>
+
+                <button type="button" class="kachel" data-rezept="a">
+                    <span class="kachel-titel">Beispielrezept</span>
+                    <span class="kachel-text">Beispielrezept erklärung</span>
+                </button>
+
+                <button type="button" class="kachel" data-rezept="a">
+                    <span class="kachel-titel">Beispielrezept</span>
+                    <span class="kachel-text">Beispielrezept erklärung</span>
+                </button>
+
+                <button type="button" class="kachel" data-rezept="a">
+                    <span class="kachel-titel">Beispielrezept</span>
+                    <span class="kachel-text">Beispielrezept erklärung</span>
+                </button>
+
+                <button type="button" class="kachel" data-rezept="a">
+                    <span class="kachel-titel">Beispielrezept</span>
+                    <span class="kachel-text">Beispielrezept erklärung</span>
+                </button>                                                                                                        
+            </div>
+        
+        </form>
     </main>
 
     <footer class="site-footer">
@@ -34,5 +120,6 @@
         <a href="impressum.html">Impressum</a>
     </footer>
 
+	<script src="js/kachelbutton.js"></script>
 </body>
 </html>
