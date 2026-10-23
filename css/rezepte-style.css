@@ -1,5 +1,13 @@
 /* AB HIER IST DER CSS der Rezepte :)/
 /*---------------------------------------------------------------------------*/
+.hero {
+    text-align: center;
+    margin: 0.5rem 0 2rem;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+}
 
 
 /* Startseite: Filter-Kacheln */
