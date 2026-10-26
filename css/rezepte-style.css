@@ -79,7 +79,7 @@ hier mach ich dne kleinen filter oben*/
     gap: 2rem;
     justify-content: center; /*setzt die kacheln in die mitte*/
     margin: 0 auto 2rem;
-    max-width: 300px;
+    max-width: 400px;
     
 }
 
@@ -92,7 +92,7 @@ hier mach ich dne kleinen filter oben*/
     padding: 0.5rem;
     border: 1px solid #000;
     cursor: pointer;            /* Hand-Cursor: zeigt "klickbar" */
-    min-width: 120px;
+    min-width: 135px;
 }
 
 .kachel-titelklein {
@@ -140,6 +140,7 @@ hier mach ich dne kleinen filter oben*/
 .anzeigen-buttonklein:hover {
     background: #000;
     color: #fff;
+}
 
 @media (max-width: 700px) {
     .kachel-rasterklein {
