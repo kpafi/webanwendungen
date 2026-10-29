@@ -1,0 +1,55 @@
+/* CSS fuer die Beispielrezept Seite */
+
+/* alles in die mitte und nicht zu breit */
+.rezept-seite {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* die kaesten mit rahmen */
+.rezept-box {
+    border: 1px solid #000;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    min-height: 120px;
+}
+
+.rezept-box h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* listen etwas einruecken */
+.rezept-box ul,
+.rezept-box ol {
+    padding-left: 1.5rem;
+}
+
+/* zutaten und zubereitung nebeneinander */
+.rezept-reihe {
+    display: flex;
+    gap: 2rem;
+}
+
+.zutaten {
+    width: 35%;
+    min-height: 200px;
+}
+
+.zubereitung {
+    width: 65%;
+    min-height: 200px;
+}
+
+/* auf dem handy untereinander */
+@media (max-width: 700px) {
+    .rezept-reihe {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .zutaten,
+    .zubereitung {
+        width: 100%;
+    }
+}
