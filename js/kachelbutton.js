@@ -1,6 +1,6 @@
 const formular = document.getElementById("filter-form");
 
-document.querySelectorAll('.kachel').forEach(kachel => {
+document.querySelectorAll('button.kachel').forEach(kachel => {
     kachel.addEventListener('click', () => {
         window.location.href = "beispielrezept.html";
     });

@@ -25,6 +25,10 @@
     padding-left: 1.5rem;
 }
 
+.rezept-box li {
+    margin-bottom: 0.4rem;
+}
+
 /* zutaten und zubereitung nebeneinander */
 .rezept-reihe {
     display: flex;
@@ -39,6 +43,27 @@
 .zubereitung {
     width: 65%;
     min-height: 200px;
+}
+
+/* skizze so breit wie die box, aber nicht groesser als gezeichnet */
+.skizze {
+    display: block;
+    width: 100%;
+    max-width: 640px;
+    margin: 0.5rem auto 1rem;
+}
+
+.skizze-text {
+    color: #555;
+    font-size: 0.9rem;
+}
+
+/* platzhalter, hier kommt spaeter die demo hin */
+.demo-platzhalter {
+    padding: 2rem;
+    border: 2px dashed #999;
+    color: #777;
+    text-align: center;
 }
 
 /* auf dem handy untereinander */

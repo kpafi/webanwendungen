@@ -8,6 +8,8 @@
 body {
     font-family: system-ui, sans-serif;
     line-height: 1.5;
+    color: #000;
+    background: #fff;
     min-height: 100vh;
     display: flex;
     flex-direction: column;   /* Header oben, Main in der Mitte, Footer unten */
@@ -29,22 +31,28 @@ body {
     font-weight: bold;
     text-decoration: none;
     color: inherit;
+    gap: 0.5rem;
 }
 
 .site-header nav ul {
     display: flex;
-    gap: 1.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
     list-style: none;
 }
 
 .site-header nav a {
     text-decoration: none;
     color: inherit;
-    width: 1;
 }
 
 .site-header nav a:hover {
     text-decoration: underline;
+}
+
+/* aktuelle Seite in der Navigation */
+.site-header nav a.aktiv {
+    font-weight: bold;
 }
 
 /* Hauptbereich */
@@ -63,4 +71,27 @@ main {
 
 .site-footer a {
     color: inherit;
+}
+
+/* Links im Text blau wie das Logo */
+main a {
+    color: #3d5afe;
+}
+
+/* auf dem Handy Logo und Navigation untereinander */
+@media (max-width: 700px) {
+    .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 1rem;
+    }
+
+    main {
+        padding: 1.5rem 1rem;
+    }
+
+    .site-footer {
+        padding: 1rem;
+    }
 }

@@ -47,12 +47,13 @@
 
 /* Ausgewählte Kachel hervorheben */
 .kachel:has(input:checked) {
-    background-color: #000;
+    background-color: #3d5afe;
+    border-color: #3d5afe;
     color: #fff;
 }
 
 .kachel:has(input:checked) .kachel-text {
-    color: #ddd;
+    color: #e3e8ff;
 }
 
 /* Tastatur-Bedienung sichtbar machen */
