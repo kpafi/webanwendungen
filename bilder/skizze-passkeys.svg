@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 365" width="640" height="365">
+<style>
+    text { font-family: system-ui, sans-serif; font-size: 17px; fill: #000; }
+    .fett { font-weight: bold; }
+    .mitte { text-anchor: middle; }
+    .klein { font-size: 14px; fill: #555; }
+    .mono { font-family: monospace; font-size: 15px; }
+    .geheim { fill: #3d5afe; font-weight: bold; }
+    .box { fill: #fff; stroke: #000; stroke-width: 2; }
+    .box-blau { fill: #fff; stroke: #3d5afe; stroke-width: 3; }
+    .box-grau { fill: #fff; stroke: #000; stroke-width: 2; stroke-dasharray: 6 4; }
+    .linie { stroke: #000; stroke-width: 2; fill: none; }
+    .pfeil { stroke: #000; stroke-width: 2; fill: none; marker-end: url(#pfeil); }
+    .pfeil-blau { stroke: #3d5afe; stroke-width: 2; fill: none; marker-end: url(#pfeil-blau); }
+    .gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+    .pfeil-gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; marker-end: url(#pfeil); }
+</style>
+<defs>
+    <marker id="pfeil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#000"/>
+    </marker>
+    <marker id="pfeil-blau" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#3d5afe"/>
+    </marker>
+</defs>
+<rect x="30" y="15" width="160" height="40" class="box"/>
+<text x="110" y="41" class="mitte fett">Gerät</text>
+<rect x="450" y="15" width="160" height="40" class="box"/>
+<text x="530" y="41" class="mitte fett">Server</text>
+<text x="110" y="78" class="geheim mitte">privater Schlüssel</text>
+<text x="530" y="78" class="mitte">öffentlicher Schlüssel</text>
+<line x1="110" y1="90" x2="110" y2="300" class="gestrichelt"/>
+<line x1="530" y1="90" x2="530" y2="300" class="gestrichelt"/>
+<line x1="110" y1="120" x2="526" y2="120" class="pfeil"/>
+<text x="320" y="110" class="mitte">Registrieren: öffentlicher Schlüssel</text>
+<line x1="10" y1="142" x2="630" y2="142" class="gestrichelt"/>
+<text x="10" y="162" class="fett">Anmelden</text>
+<line x1="530" y1="185" x2="114" y2="185" class="pfeil"/>
+<text x="320" y="177" class="mitte">1. Challenge (zufällig)</text>
+<text x="122" y="213" class="klein">2. Freigabe per Finger oder PIN</text>
+<line x1="110" y1="255" x2="526" y2="255" class="pfeil"/>
+<text x="320" y="245" class="mitte">3. Signatur über Challenge + Domain</text>
+<rect x="440" y="300" width="180" height="40" class="box-blau"/>
+<text x="530" y="326" class="mitte fett">✓ angemeldet</text>
+<rect x="10" y="300" width="380" height="56" class="box-grau"/>
+<text x="25" y="323" class="klein">Server-Datenleck? Nur öffentliche Schlüssel –</text>
+<text x="25" y="345" class="klein">damit kann sich niemand anmelden.</text>
+</svg>

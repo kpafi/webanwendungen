@@ -85,7 +85,19 @@
 
 @media (max-width: 700px) {
     .kachel-raster {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* lange Woerter (z.B. Verschluesselung) duerfen auf dem Handy umbrechen */
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero h1,
+    .kachel-titel,
+    .rezept-box code {
+        overflow-wrap: anywhere;
+        hyphens: auto;
     }
 }
 /*--------------------------------------------------------------------------------------------
@@ -165,4 +177,19 @@ hier mach ich dne kleinen filter oben*/
     .kachel-rasterklein {
         grid-template-columns: 1fr;
     }
+}
+
+/* Hochladen-Button: zweite Zeile im kleinen Filter, mittig unter Vertraulichkeit */
+.hochladen {
+    grid-column: 2;
+    color: #000;
+    text-decoration: none;
+}
+
+.hochladen-hinweis {
+    grid-column: 1 / -1;
+    margin-top: -1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #555;
 }

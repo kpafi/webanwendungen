@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krypto-Küche – Challenge-Response</title>
+    <link rel="stylesheet" href="css/global-style.css">
+    <link rel="stylesheet" href="css/rezepte-style.css">
+    <link rel="stylesheet" href="css/beispielrezept-style.css">
+</head>
+<body>
+
+    <header class="site-header">
+
+        <a href="index.html" class="logo">
+            <img src="bilder/krypto-kueche-logo-128.png" alt="Krypto-Küche Logo" height="48" width="48">
+            Krypto-Küche
+        </a>
+        <nav>
+            <ul>
+                <li><a href="rezepte.html">Rezepte</a></li>
+                <li><a href="a.html">Authentizität</a></li>
+                <li><a href="v.html">Vertraulichkeit</a></li>
+                <li><a href="i.html">Integrität</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+    <!-- Hinweis: Die Recherche für die Inhalte dieser Seite wurde von Claude (KI) durchgeführt und anschließend gegengelesen. -->
+        <section class="hero">
+            <h1>Challenge-Response</h1>
+            <p>Beweisen, dass man das Rezept kennt, ohne es zu verraten.</p>
+        </section>
+
+        <div class="rezept-seite">
+
+            <div class="rezept-box">
+                <h2>Definition</h2>
+                <p>Beim Challenge-Response-Verfahren beweist ein Teilnehmer, dass er ein Geheimnis kennt, ohne es
+                selbst zu übertragen: Der Prüfer schickt eine zufällige Frage (Challenge), der Teilnehmer antwortet
+                mit einem Wert (Response), den nur ein Geheimnisträger berechnen kann. Ein Lauscher kann die Antwort
+                nicht wiederverwenden, weil die nächste Challenge eine andere ist.</p>
+            </div>
+
+            <div class="rezept-reihe">
+
+                <div class="rezept-box zutaten">
+                    <h2>Zutaten</h2>
+                    <ul>
+                        <li>Gemeinsamer geheimer Schlüssel (oder ein Schlüsselpaar)</li>
+                        <li>Eine frische Zufallszahl (Nonce) als Challenge</li>
+                        <li><a href="rezept-hmac.html">HMAC</a> oder eine <a href="rezept-signatur.html">Signatur</a></li>
+                    </ul>
+                </div>
+
+                <div class="rezept-box zubereitung">
+                    <h2>Zubereitung</h2>
+                    <ol>
+                        <li>Der Client meldet sich: „Ich bin Alice.“</li>
+                        <li>Der Server erzeugt eine zufällige Challenge, merkt sie sich und schickt sie an den Client.</li>
+                        <li>Der Client berechnet <code>Response = HMAC(K, Challenge)</code> und schickt sie zurück.</li>
+                        <li>Der Server berechnet den erwarteten Wert selbst und vergleicht.</li>
+                        <li>Die Challenge wird verworfen – jede ist nur ein einziges Mal gültig.</li>
+                    </ol>
+                </div>
+
+            </div>
+
+            <div class="rezept-box">
+                <h2>Skizze</h2>
+                <img class="skizze" src="bilder/skizze-challenge-response.svg" alt="Ablauf: Client meldet sich, Server schickt zufällige Challenge, Client antwortet mit HMAC, Server prüft">
+                <p class="skizze-text">Der Schlüssel K geht nie über die Leitung – nur die Challenge und die passende Antwort darauf.</p>
+                <p class="skizze-text">Skizze erstellt von Claude (KI)</p>
+            </div>
+
+            <div class="rezept-box">
+                <h2>Demo</h2>
+                <div class="demo-platzhalter">Platzhalter für die Demo</div>
+            </div>
+
+            <div class="rezept-box">
+                <h2>Tipps</h2>
+                <ul>
+                    <li>Die Challenge muss unvorhersehbar und einmalig sein, sonst sind Replay-Angriffe möglich.</li>
+                    <li>Mit Signaturen statt HMAC muss der Server gar kein Geheimnis speichern – so funktionieren <a href="rezept-passkeys.html">Passkeys</a> und der Public-Key-Login bei <a href="rezept-ssh.html">SSH</a>.</li>
+                    <li>Weitere Beispiele: Funk-Autoschlüssel, Bankkarten-Chip (EMV), WLAN-Anmeldung.</li>
+                    <li>Für gegenseitige Authentisierung stellen sich beide Seiten gegenseitig eine Challenge.</li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Krypto-Küche – WBA WS 26/27</p>
+        <a href="impressum.html">Impressum</a>
+    </footer>
+
+</body>
+</html>

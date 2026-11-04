@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200" width="640" height="200">
+<style>
+    text { font-family: system-ui, sans-serif; font-size: 17px; fill: #000; }
+    .fett { font-weight: bold; }
+    .mitte { text-anchor: middle; }
+    .klein { font-size: 14px; fill: #555; }
+    .mono { font-family: monospace; font-size: 15px; }
+    .geheim { fill: #3d5afe; font-weight: bold; }
+    .box { fill: #fff; stroke: #000; stroke-width: 2; }
+    .box-blau { fill: #fff; stroke: #3d5afe; stroke-width: 3; }
+    .box-grau { fill: #fff; stroke: #000; stroke-width: 2; stroke-dasharray: 6 4; }
+    .linie { stroke: #000; stroke-width: 2; fill: none; }
+    .pfeil { stroke: #000; stroke-width: 2; fill: none; marker-end: url(#pfeil); }
+    .pfeil-blau { stroke: #3d5afe; stroke-width: 2; fill: none; marker-end: url(#pfeil-blau); }
+    .gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+    .pfeil-gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; marker-end: url(#pfeil); }
+</style>
+<defs>
+    <marker id="pfeil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#000"/>
+    </marker>
+    <marker id="pfeil-blau" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#3d5afe"/>
+    </marker>
+</defs>
+<text x="110" y="26" class="fett mitte">Alice</text>
+<text x="530" y="26" class="fett mitte">Bob</text>
+<text x="530" y="48" class="geheim mitte">hat geheimes d</text>
+<line x1="470" y1="72" x2="170" y2="72" class="pfeil"/>
+<text x="320" y="64" class="mitte">1. öffentlicher Schlüssel (n, e)</text>
+<rect x="10" y="105" width="200" height="50" class="box"/>
+<text x="110" y="136" class="mitte">2. c = mᵉ mod n</text>
+<line x1="210" y1="130" x2="426" y2="130" class="pfeil"/>
+<text x="318" y="122" class="mitte">3. Geheimtext c</text>
+<text x="318" y="150" class="mitte klein">(darf jeder sehen)</text>
+<rect x="430" y="105" width="200" height="50" class="box-blau"/>
+<text x="530" y="136" class="mitte">4. m = cᵈ mod n</text>
+<text x="110" y="185" class="mitte klein">einwerfen kann jeder</text>
+<text x="530" y="185" class="mitte klein">öffnen kann nur Bob</text>
+</svg>

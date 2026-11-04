@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 365" width="640" height="365">
+<style>
+    text { font-family: system-ui, sans-serif; font-size: 17px; fill: #000; }
+    .fett { font-weight: bold; }
+    .mitte { text-anchor: middle; }
+    .klein { font-size: 14px; fill: #555; }
+    .mono { font-family: monospace; font-size: 15px; }
+    .geheim { fill: #3d5afe; font-weight: bold; }
+    .box { fill: #fff; stroke: #000; stroke-width: 2; }
+    .box-blau { fill: #fff; stroke: #3d5afe; stroke-width: 3; }
+    .box-grau { fill: #fff; stroke: #000; stroke-width: 2; stroke-dasharray: 6 4; }
+    .linie { stroke: #000; stroke-width: 2; fill: none; }
+    .pfeil { stroke: #000; stroke-width: 2; fill: none; marker-end: url(#pfeil); }
+    .pfeil-blau { stroke: #3d5afe; stroke-width: 2; fill: none; marker-end: url(#pfeil-blau); }
+    .gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+    .pfeil-gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; marker-end: url(#pfeil); }
+</style>
+<defs>
+    <marker id="pfeil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#000"/>
+    </marker>
+    <marker id="pfeil-blau" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#3d5afe"/>
+    </marker>
+</defs>
+<rect x="30" y="15" width="140" height="40" class="box"/>
+<text x="100" y="41" class="mitte fett">Client</text>
+<rect x="470" y="15" width="140" height="40" class="box"/>
+<text x="540" y="41" class="mitte fett">Server</text>
+<text x="100" y="80" class="geheim mitte">kennt K</text>
+<text x="540" y="80" class="geheim mitte">kennt K</text>
+<line x1="100" y1="92" x2="100" y2="300" class="gestrichelt"/>
+<line x1="540" y1="92" x2="540" y2="300" class="gestrichelt"/>
+<line x1="100" y1="125" x2="536" y2="125" class="pfeil"/>
+<text x="320" y="115" class="mitte">1. „Ich bin Alice“</text>
+<line x1="540" y1="180" x2="104" y2="180" class="pfeil"/>
+<text x="320" y="170" class="mitte">2. Challenge: 7f3a91… (zufällig)</text>
+<text x="112" y="208" class="klein">rechnet HMAC(K, Challenge)</text>
+<line x1="100" y1="245" x2="536" y2="245" class="pfeil"/>
+<text x="320" y="235" class="mitte">3. Response</text>
+<text x="528" y="273" class="klein" text-anchor="end">rechnet selbst nach und vergleicht</text>
+<rect x="450" y="300" width="180" height="40" class="box-blau"/>
+<text x="540" y="326" class="mitte fett">✓ angemeldet</text>
+<rect x="10" y="300" width="360" height="56" class="box-grau"/>
+<text x="25" y="323" class="klein">Lauscher kennt Challenge + Response</text>
+<text x="25" y="345" class="klein">nächstes Mal neue Challenge → nutzlos</text>
+</svg>

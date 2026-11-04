@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 325" width="640" height="325">
+<style>
+    text { font-family: system-ui, sans-serif; font-size: 17px; fill: #000; }
+    .fett { font-weight: bold; }
+    .mitte { text-anchor: middle; }
+    .klein { font-size: 14px; fill: #555; }
+    .mono { font-family: monospace; font-size: 15px; }
+    .geheim { fill: #3d5afe; font-weight: bold; }
+    .box { fill: #fff; stroke: #000; stroke-width: 2; }
+    .box-blau { fill: #fff; stroke: #3d5afe; stroke-width: 3; }
+    .box-grau { fill: #fff; stroke: #000; stroke-width: 2; stroke-dasharray: 6 4; }
+    .linie { stroke: #000; stroke-width: 2; fill: none; }
+    .pfeil { stroke: #000; stroke-width: 2; fill: none; marker-end: url(#pfeil); }
+    .pfeil-blau { stroke: #3d5afe; stroke-width: 2; fill: none; marker-end: url(#pfeil-blau); }
+    .gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+    .pfeil-gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; marker-end: url(#pfeil); }
+</style>
+<defs>
+    <marker id="pfeil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#000"/>
+    </marker>
+    <marker id="pfeil-blau" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#3d5afe"/>
+    </marker>
+</defs>
+<text x="150" y="20" class="fett mitte">Alice signiert</text>
+<text x="470" y="20" class="fett mitte">Bob prüft</text>
+<rect x="85" y="35" width="130" height="40" class="box"/>
+<text x="150" y="61" class="mitte">Dokument</text>
+<line x1="150" y1="75" x2="150" y2="108" class="pfeil"/>
+<rect x="95" y="110" width="110" height="40" class="box"/>
+<text x="150" y="136" class="mitte">SHA-256</text>
+<line x1="150" y1="150" x2="150" y2="188" class="pfeil"/>
+<rect x="405" y="35" width="130" height="40" class="box"/>
+<text x="470" y="61" class="mitte">Dokument</text>
+<line x1="470" y1="75" x2="470" y2="108" class="pfeil"/>
+<rect x="415" y="110" width="110" height="40" class="box"/>
+<text x="470" y="136" class="mitte">SHA-256</text>
+<line x1="470" y1="150" x2="470" y2="188" class="pfeil"/>
+<line x1="215" y1="55" x2="403" y2="55" class="pfeil"/>
+<text x="309" y="47" class="mitte klein">Dokument wird verschickt</text>
+<rect x="95" y="190" width="110" height="40" class="box-blau"/>
+<text x="150" y="216" class="mitte fett">signieren</text>
+<text x="78" y="216" class="geheim" text-anchor="end">privat</text>
+<line x1="82" y1="210" x2="93" y2="210" class="pfeil-blau"/>
+<line x1="150" y1="230" x2="150" y2="268" class="pfeil"/>
+<rect x="95" y="270" width="110" height="40" class="box"/>
+<text x="150" y="296" class="mitte">Signatur</text>
+<rect x="415" y="190" width="110" height="40" class="box"/>
+<text x="470" y="216" class="mitte fett">prüfen</text>
+<text x="552" y="216" class="fett">öffentlich</text>
+<line x1="548" y1="210" x2="527" y2="210" class="pfeil"/>
+<polyline points="205,290 360,290 360,210 413,210" class="pfeil"/>
+<text x="282" y="282" class="mitte klein">Signatur</text>
+<line x1="470" y1="230" x2="470" y2="268" class="pfeil"/>
+<rect x="400" y="270" width="140" height="40" class="box-blau"/>
+<text x="470" y="296" class="mitte fett">✓ gültig?</text>
+</svg>

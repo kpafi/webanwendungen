@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250">
+<style>
+    text { font-family: system-ui, sans-serif; font-size: 17px; fill: #000; }
+    .fett { font-weight: bold; }
+    .mitte { text-anchor: middle; }
+    .klein { font-size: 14px; fill: #555; }
+    .mono { font-family: monospace; font-size: 15px; }
+    .geheim { fill: #3d5afe; font-weight: bold; }
+    .box { fill: #fff; stroke: #000; stroke-width: 2; }
+    .box-blau { fill: #fff; stroke: #3d5afe; stroke-width: 3; }
+    .box-grau { fill: #fff; stroke: #000; stroke-width: 2; stroke-dasharray: 6 4; }
+    .linie { stroke: #000; stroke-width: 2; fill: none; }
+    .pfeil { stroke: #000; stroke-width: 2; fill: none; marker-end: url(#pfeil); }
+    .pfeil-blau { stroke: #3d5afe; stroke-width: 2; fill: none; marker-end: url(#pfeil-blau); }
+    .gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+    .pfeil-gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; marker-end: url(#pfeil); }
+</style>
+<defs>
+    <marker id="pfeil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#000"/>
+    </marker>
+    <marker id="pfeil-blau" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#3d5afe"/>
+    </marker>
+</defs>
+<rect x="10" y="30" width="180" height="44" class="box"/>
+<text x="100" y="58" class="mitte">Krypto-Küche</text>
+<rect x="10" y="140" width="180" height="44" class="box"/>
+<text x="100" y="168" class="mitte">Krypto-<tspan class="geheim">k</tspan>üche</text>
+<rect x="250" y="20" width="120" height="174" class="box"/>
+<text x="310" y="112" class="mitte fett">SHA-256</text>
+<line x1="190" y1="52" x2="247" y2="52" class="pfeil"/>
+<line x1="190" y1="162" x2="247" y2="162" class="pfeil"/>
+<line x1="370" y1="52" x2="427" y2="52" class="pfeil"/>
+<line x1="370" y1="162" x2="427" y2="162" class="pfeil"/>
+<rect x="430" y="30" width="200" height="44" class="box"/>
+<text x="530" y="58" class="mitte mono">4a3d660d…6eb49f</text>
+<rect x="430" y="140" width="200" height="44" class="box"/>
+<text x="530" y="168" class="mitte mono">232b2979…3fb88f</text>
+<text x="530" y="98" class="mitte klein">immer 64 Hex-Zeichen</text>
+<line x1="430" y1="232" x2="194" y2="232" class="pfeil-gestrichelt"/>
+<text x="312" y="224" class="mitte klein">✗ zurückrechnen unmöglich</text>
+</svg>

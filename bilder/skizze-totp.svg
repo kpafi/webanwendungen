@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 270" width="640" height="270">
+<style>
+    text { font-family: system-ui, sans-serif; font-size: 17px; fill: #000; }
+    .fett { font-weight: bold; }
+    .mitte { text-anchor: middle; }
+    .klein { font-size: 14px; fill: #555; }
+    .mono { font-family: monospace; font-size: 15px; }
+    .geheim { fill: #3d5afe; font-weight: bold; }
+    .box { fill: #fff; stroke: #000; stroke-width: 2; }
+    .box-blau { fill: #fff; stroke: #3d5afe; stroke-width: 3; }
+    .box-grau { fill: #fff; stroke: #000; stroke-width: 2; stroke-dasharray: 6 4; }
+    .linie { stroke: #000; stroke-width: 2; fill: none; }
+    .pfeil { stroke: #000; stroke-width: 2; fill: none; marker-end: url(#pfeil); }
+    .pfeil-blau { stroke: #3d5afe; stroke-width: 2; fill: none; marker-end: url(#pfeil-blau); }
+    .gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+    .pfeil-gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; marker-end: url(#pfeil); }
+</style>
+<defs>
+    <marker id="pfeil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#000"/>
+    </marker>
+    <marker id="pfeil-blau" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#3d5afe"/>
+    </marker>
+</defs>
+<text x="10" y="22" class="fett">Handy-App und Server rechnen beide:</text>
+<rect x="10" y="40" width="150" height="40" class="box-blau"/>
+<text x="85" y="66" class="mitte geheim">Geheimnis</text>
+<rect x="10" y="100" width="150" height="40" class="box"/>
+<text x="85" y="126" class="mitte">Uhrzeit ÷ 30</text>
+<line x1="160" y1="60" x2="208" y2="80" class="pfeil"/>
+<line x1="160" y1="120" x2="208" y2="100" class="pfeil"/>
+<rect x="210" y="65" width="120" height="50" class="box"/>
+<text x="270" y="96" class="mitte fett">HMAC-SHA1</text>
+<line x1="330" y1="90" x2="378" y2="90" class="pfeil"/>
+<rect x="380" y="70" width="100" height="40" class="box"/>
+<text x="430" y="96" class="mitte fett">kürzen</text>
+<text x="430" y="130" class="mitte klein">→ 6 Ziffern</text>
+<line x1="480" y1="90" x2="518" y2="90" class="pfeil"/>
+<rect x="520" y="65" width="110" height="50" class="box"/>
+<text x="575" y="96" class="mitte mono fett">317 676</text>
+<text x="10" y="182" class="fett">alle 30 Sekunden ein neuer Code:</text>
+<rect x="10" y="195" width="190" height="40" class="box"/>
+<text x="105" y="221" class="mitte mono">482 913</text>
+<text x="105" y="255" class="mitte klein">12:00:00</text>
+<rect x="220" y="195" width="190" height="40" class="box-blau"/>
+<text x="315" y="221" class="mitte mono">317 676</text>
+<text x="315" y="255" class="mitte klein">12:00:30 – jetzt</text>
+<rect x="430" y="195" width="190" height="40" class="box"/>
+<text x="525" y="221" class="mitte mono">055 208</text>
+<text x="525" y="255" class="mitte klein">12:01:00</text>
+</svg>

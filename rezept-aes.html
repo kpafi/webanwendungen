@@ -27,6 +27,7 @@
     </header>
 
     <main>
+    <!-- Hinweis: Die Recherche für die Inhalte dieser Seite wurde von Claude (KI) durchgeführt und anschließend gegengelesen. -->
         <section class="hero">
             <h1>AES-Verschlüsselung</h1>
             <p>Das Grundnahrungsmittel jeder modernen Krypto-Küche.</p>
@@ -48,7 +49,7 @@
                     <h2>Zutaten</h2>
                     <ul>
                         <li>Klartext</li>
-                        <li>Geheimer Schlüssel mit 128 oder 256 Bit aus einem sicheren Zufallsgenerator</li>
+                        <li>Geheimer Schlüssel mit 128, 192 oder 256 Bit aus einem sicheren Zufallsgenerator</li>
                         <li>Ein Betriebsmodus, z. B. CBC, CTR oder GCM</li>
                         <li>Ein Initialisierungsvektor (IV), für jede Nachricht neu</li>
                     </ul>
@@ -57,9 +58,9 @@
                 <div class="rezept-box zubereitung">
                     <h2>Zubereitung</h2>
                     <ol>
-                        <li>Schlüssel zufällig erzeugen und sicher mit dem Empfänger teilen – zum Beispiel per Diffie-Hellman.</li>
-                        <li>Für jede Nachricht einen neuen, zufälligen IV erzeugen.</li>
-                        <li>Den Klartext in 16-Byte-Blöcke aufteilen und den letzten Block auffüllen (Padding).</li>
+                        <li>Schlüssel zufällig erzeugen und sicher mit dem Empfänger teilen – zum Beispiel per <a href="rezept-diffie-hellman.html">Diffie-Hellman</a>.</li>
+                        <li>Für jede Nachricht einen neuen IV erzeugen (bei CBC zufällig, bei CTR und GCM ein einmaliger Zähler- bzw. Nonce-Wert).</li>
+                        <li>Den Klartext in 16-Byte-Blöcke aufteilen. Bei CBC wird der letzte Block aufgefüllt (Padding); CTR und GCM brauchen das nicht.</li>
                         <li>Jeden Block in 10 bzw. 14 Runden aus <em>SubBytes</em>, <em>ShiftRows</em>, <em>MixColumns</em> und <em>AddRoundKey</em> verschlüsseln. Der Betriebsmodus verkettet die Blöcke miteinander.</li>
                         <li>IV und Geheimtext verschicken. Der IV ist nicht geheim.</li>
                         <li>Der Empfänger entschlüsselt mit demselben Schlüssel und dem IV.</li>
@@ -84,7 +85,7 @@
                 <h2>Tipps</h2>
                 <ul>
                     <li>Niemals den ECB-Modus verwenden: Gleiche Klartextblöcke ergeben dort gleiche Geheimtextblöcke (berühmtes Beispiel: der verschlüsselte Linux-Pinguin bleibt erkennbar).</li>
-                    <li>AES allein schützt nur die Vertraulichkeit. Wer auch Integrität will, nimmt AES-GCM.</li>
+                    <li>AES allein schützt nur die Vertraulichkeit. Wer auch Integrität will, nimmt <a href="rezept-aes-gcm.html">AES-GCM</a>.</li>
                     <li>Ein Passwort ist kein Schlüssel – erst mit einer Schlüsselableitung (PBKDF2, Argon2) daraus einen machen.</li>
                     <li>Nie selbst implementieren, sondern geprüfte Bibliotheken nutzen (z. B. die Web Crypto API im Browser).</li>
                 </ul>

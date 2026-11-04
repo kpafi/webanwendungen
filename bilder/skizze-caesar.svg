@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 275" width="640" height="275">
+<style>
+    text { font-family: system-ui, sans-serif; font-size: 17px; fill: #000; }
+    .fett { font-weight: bold; }
+    .mitte { text-anchor: middle; }
+    .klein { font-size: 14px; fill: #555; }
+    .mono { font-family: monospace; font-size: 15px; }
+    .geheim { fill: #3d5afe; font-weight: bold; }
+    .box { fill: #fff; stroke: #000; stroke-width: 2; }
+    .box-blau { fill: #fff; stroke: #3d5afe; stroke-width: 3; }
+    .box-grau { fill: #fff; stroke: #000; stroke-width: 2; stroke-dasharray: 6 4; }
+    .linie { stroke: #000; stroke-width: 2; fill: none; }
+    .pfeil { stroke: #000; stroke-width: 2; fill: none; marker-end: url(#pfeil); }
+    .pfeil-blau { stroke: #3d5afe; stroke-width: 2; fill: none; marker-end: url(#pfeil-blau); }
+    .gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+    .pfeil-gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; marker-end: url(#pfeil); }
+</style>
+<defs>
+    <marker id="pfeil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#000"/>
+    </marker>
+    <marker id="pfeil-blau" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#3d5afe"/>
+    </marker>
+</defs>
+<text x="10" y="61" class="fett">Klartext</text>
+<text x="10" y="191" class="fett">Geheimtext</text>
+<text x="10" y="126" class="geheim">k = 3</text>
+<rect x="130" y="35" width="40" height="40" class="box"/>
+<text x="150" y="61" class="mitte fett">A</text>
+<rect x="130" y="165" width="40" height="40" class="box"/>
+<text x="150" y="191" class="mitte fett">D</text>
+<line x1="150" y1="79" x2="150" y2="160" class="pfeil"/>
+<rect x="175" y="35" width="40" height="40" class="box"/>
+<text x="195" y="61" class="mitte fett">B</text>
+<rect x="175" y="165" width="40" height="40" class="box"/>
+<text x="195" y="191" class="mitte fett">E</text>
+<line x1="195" y1="79" x2="195" y2="160" class="pfeil"/>
+<rect x="220" y="35" width="40" height="40" class="box"/>
+<text x="240" y="61" class="mitte fett">C</text>
+<rect x="220" y="165" width="40" height="40" class="box"/>
+<text x="240" y="191" class="mitte fett">F</text>
+<line x1="240" y1="79" x2="240" y2="160" class="pfeil"/>
+<rect x="265" y="35" width="40" height="40" class="box"/>
+<text x="285" y="61" class="mitte fett">D</text>
+<rect x="265" y="165" width="40" height="40" class="box"/>
+<text x="285" y="191" class="mitte fett">G</text>
+<line x1="285" y1="79" x2="285" y2="160" class="pfeil"/>
+<rect x="310" y="35" width="40" height="40" class="box"/>
+<text x="330" y="61" class="mitte fett">E</text>
+<rect x="310" y="165" width="40" height="40" class="box"/>
+<text x="330" y="191" class="mitte fett">H</text>
+<line x1="330" y1="79" x2="330" y2="160" class="pfeil"/>
+<rect x="355" y="35" width="40" height="40" class="box"/>
+<text x="375" y="61" class="mitte fett">F</text>
+<rect x="355" y="165" width="40" height="40" class="box"/>
+<text x="375" y="191" class="mitte fett">I</text>
+<line x1="375" y1="79" x2="375" y2="160" class="pfeil"/>
+<rect x="400" y="35" width="40" height="40" class="box"/>
+<text x="420" y="61" class="mitte fett">G</text>
+<rect x="400" y="165" width="40" height="40" class="box"/>
+<text x="420" y="191" class="mitte fett">J</text>
+<line x1="420" y1="79" x2="420" y2="160" class="pfeil"/>
+<text x="465" y="61" class="mitte">…</text>
+<text x="465" y="191" class="mitte">…</text>
+<rect x="490" y="35" width="40" height="40" class="box"/>
+<text x="510" y="61" class="mitte fett">X</text>
+<rect x="490" y="165" width="40" height="40" class="box-blau"/>
+<text x="510" y="191" class="mitte fett">A</text>
+<line x1="510" y1="79" x2="510" y2="160" class="pfeil"/>
+<rect x="535" y="35" width="40" height="40" class="box"/>
+<text x="555" y="61" class="mitte fett">Y</text>
+<rect x="535" y="165" width="40" height="40" class="box-blau"/>
+<text x="555" y="191" class="mitte fett">B</text>
+<line x1="555" y1="79" x2="555" y2="160" class="pfeil"/>
+<rect x="580" y="35" width="40" height="40" class="box"/>
+<text x="600" y="61" class="mitte fett">Z</text>
+<rect x="580" y="165" width="40" height="40" class="box-blau"/>
+<text x="600" y="191" class="mitte fett">C</text>
+<line x1="600" y1="79" x2="600" y2="160" class="pfeil"/>
+<text x="555" y="228" class="klein mitte">nach Z wieder A</text>
+<text x="130" y="262" class="mono">VENI VIDI VICI  →  YHQL YLGL YLFL</text>
+</svg>

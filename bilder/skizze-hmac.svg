@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 350" width="640" height="350">
+<style>
+    text { font-family: system-ui, sans-serif; font-size: 17px; fill: #000; }
+    .fett { font-weight: bold; }
+    .mitte { text-anchor: middle; }
+    .klein { font-size: 14px; fill: #555; }
+    .mono { font-family: monospace; font-size: 15px; }
+    .geheim { fill: #3d5afe; font-weight: bold; }
+    .box { fill: #fff; stroke: #000; stroke-width: 2; }
+    .box-blau { fill: #fff; stroke: #3d5afe; stroke-width: 3; }
+    .box-grau { fill: #fff; stroke: #000; stroke-width: 2; stroke-dasharray: 6 4; }
+    .linie { stroke: #000; stroke-width: 2; fill: none; }
+    .pfeil { stroke: #000; stroke-width: 2; fill: none; marker-end: url(#pfeil); }
+    .pfeil-blau { stroke: #3d5afe; stroke-width: 2; fill: none; marker-end: url(#pfeil-blau); }
+    .gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+    .pfeil-gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; marker-end: url(#pfeil); }
+</style>
+<defs>
+    <marker id="pfeil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#000"/>
+    </marker>
+    <marker id="pfeil-blau" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#3d5afe"/>
+    </marker>
+</defs>
+<text x="105" y="20" class="fett mitte">Sender</text>
+<text x="535" y="20" class="fett mitte">Empfänger</text>
+<rect x="40" y="35" width="130" height="40" class="box"/>
+<text x="105" y="61" class="mitte">Nachricht m</text>
+<line x1="105" y1="75" x2="105" y2="108" class="pfeil"/>
+<rect x="50" y="110" width="110" height="44" class="box"/>
+<text x="105" y="138" class="mitte fett">HMAC</text>
+<text x="18" y="138" class="geheim mitte">K</text>
+<line x1="28" y1="132" x2="48" y2="132" class="pfeil-blau"/>
+<line x1="105" y1="154" x2="105" y2="188" class="pfeil"/>
+<rect x="50" y="190" width="110" height="40" class="box"/>
+<rect x="470" y="35" width="130" height="40" class="box"/>
+<text x="535" y="61" class="mitte">Nachricht m</text>
+<line x1="535" y1="75" x2="535" y2="108" class="pfeil"/>
+<rect x="480" y="110" width="110" height="44" class="box"/>
+<text x="535" y="138" class="mitte fett">HMAC</text>
+<text x="622" y="138" class="geheim mitte">K</text>
+<line x1="612" y1="132" x2="592" y2="132" class="pfeil-blau"/>
+<line x1="535" y1="154" x2="535" y2="188" class="pfeil"/>
+<rect x="480" y="190" width="110" height="40" class="box"/>
+<text x="105" y="216" class="mitte">Tag</text>
+<text x="535" y="216" class="mitte">Tag′</text>
+<line x1="170" y1="55" x2="466" y2="55" class="pfeil"/>
+<text x="320" y="47" class="mitte klein">m wird verschickt</text>
+<polyline points="160,210 200,210 200,290 236,290" class="pfeil"/>
+<polyline points="480,210 440,210 440,290 404,290" class="pfeil"/>
+<text x="192" y="262" class="klein" text-anchor="end">Tag wird</text>
+<text x="192" y="280" class="klein" text-anchor="end">mitgeschickt</text>
+<rect x="240" y="268" width="160" height="44" class="box-blau"/>
+<text x="320" y="296" class="mitte fett">Tag = Tag′ ?</text>
+<text x="320" y="336" class="mitte klein">gleich → echt und unverändert</text>
+</svg>

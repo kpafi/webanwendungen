@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krypto-Küche – Startseite</title>
+    <title>Krypto-Küche – Vertraulichkeit</title>
     <link rel="stylesheet" href="css/global-style.css">
     <link rel="stylesheet" href="css/rezepte-style.css">    
 </head>
@@ -31,66 +31,61 @@
         </section>
   		<form id="filter-form" class="filter">
             <div class="kachel-raster">
-        
+                <a href="rezept-caesar.html" class="kachel">
+                    <span class="kachel-titel">Caesar-Verschlüsselung</span>
+                    <span class="kachel-text">Jeder Buchstabe wird um ein paar Stellen im Alphabet verschoben. Einfach, aber leicht zu knacken.</span>
+                </a>
+
+                <a href="rezept-vigenere.html" class="kachel">
+                    <span class="kachel-titel">Vigenère-Verschlüsselung</span>
+                    <span class="kachel-text">Wie Caesar, aber jeder Buchstabe wird um einen anderen Wert verschoben – vorgegeben durch ein Schlüsselwort.</span>
+                </a>
+
+                <a href="rezept-otp.html" class="kachel">
+                    <span class="kachel-titel">One-Time-Pad</span>
+                    <span class="kachel-text">Nachricht XOR echt zufälliger Schlüssel, genauso lang wie die Nachricht. Beweisbar sicher, aber unpraktisch.</span>
+                </a>
+
                 <a href="rezept-aes.html" class="kachel">
                     <span class="kachel-titel">AES-Verschlüsselung</span>
                     <span class="kachel-text">Der weltweite Standard für symmetrische Verschlüsselung: ein geheimer Schlüssel zum Ver- und Entschlüsseln.</span>
                 </a>
-        
-                <button type="button" class="kachel" data-rezept="a">
-                    <span class="kachel-titel">Beispielrezept</span>
-                    <span class="kachel-text">Beispielrezept erklärung</span>
-                </button>
-        
-                <button type="button" class="kachel" data-rezept="a">
-                    <span class="kachel-titel">Beispielrezept</span>
-                    <span class="kachel-text">Beispielrezept erklärung</span>
-                </button>
 
-                <button type="button" class="kachel" data-rezept="a">
-                    <span class="kachel-titel">Beispielrezept</span>
-                    <span class="kachel-text">Beispielrezept erklärung</span>
-                </button>
+                <a href="rezept-rsa.html" class="kachel">
+                    <span class="kachel-titel">RSA-Verschlüsselung</span>
+                    <span class="kachel-text">Asymmetrisch: Jeder kann mit dem öffentlichen Schlüssel verschlüsseln, nur der Besitzer des privaten Schlüssels entschlüsselt.</span>
+                </a>
 
-                <button type="button" class="kachel" data-rezept="a">
-                    <span class="kachel-titel">Beispielrezept</span>
-                    <span class="kachel-text">Beispielrezept erklärung</span>
-                </button>                
+                <a href="rezept-diffie-hellman.html" class="kachel">
+                    <span class="kachel-titel">Diffie-Hellman-Schlüsselaustausch</span>
+                    <span class="kachel-text">Zwei Parteien vereinbaren über eine abhörbare Leitung einen gemeinsamen geheimen Schlüssel.</span>
+                </a>
 
-                <button type="button" class="kachel" data-rezept="a">
-                    <span class="kachel-titel">Beispielrezept</span>
-                    <span class="kachel-text">Beispielrezept erklärung</span>
-                </button>
+                <a href="rezept-aes-gcm.html" class="kachel">
+                    <span class="kachel-titel">AES-GCM</span>
+                    <span class="kachel-text">Authentisierte Verschlüsselung: verschlüsselt die Daten und erkennt jede Veränderung.</span>
+                </a>
 
-                <button type="button" class="kachel" data-rezept="a">
-                    <span class="kachel-titel">Beispielrezept</span>
-                    <span class="kachel-text">Beispielrezept erklärung</span>
-                </button>
+                <a href="rezept-tls.html" class="kachel">
+                    <span class="kachel-titel">TLS 1.3 (HTTPS)</span>
+                    <span class="kachel-text">Das „S“ in HTTPS: Schlüsselaustausch, Zertifikate und authentisierte Verschlüsselung kombiniert.</span>
+                </a>
 
-                <button type="button" class="kachel" data-rezept="a">
-                    <span class="kachel-titel">Beispielrezept</span>
-                    <span class="kachel-text">Beispielrezept erklärung</span>
-                </button>
+                <a href="rezept-ssh.html" class="kachel">
+                    <span class="kachel-titel">SSH</span>
+                    <span class="kachel-text">Sicherer Fernzugriff auf Server: Schlüsselaustausch, Host-Keys und Public-Key-Login.</span>
+                </a>
 
-                <button type="button" class="kachel" data-rezept="a">
-                    <span class="kachel-titel">Beispielrezept</span>
-                    <span class="kachel-text">Beispielrezept erklärung</span>
-                </button>
+                <a href="rezept-pgp.html" class="kachel">
+                    <span class="kachel-titel">E-Mail-Verschlüsselung mit OpenPGP</span>
+                    <span class="kachel-text">Hybride Verschlüsselung plus Signatur: Nur der Empfänger kann die Mail lesen und weiß, von wem sie ist.</span>
+                </a>
 
-                <button type="button" class="kachel" data-rezept="a">
-                    <span class="kachel-titel">Beispielrezept</span>
-                    <span class="kachel-text">Beispielrezept erklärung</span>
-                </button>
-
-                <button type="button" class="kachel" data-rezept="a">
-                    <span class="kachel-titel">Beispielrezept</span>
-                    <span class="kachel-text">Beispielrezept erklärung</span>
-                </button>
-
-                <button type="button" class="kachel" data-rezept="a">
-                    <span class="kachel-titel">Beispielrezept</span>
-                    <span class="kachel-text">Beispielrezept erklärung</span>
-                </button>                                                                                                        
+                <a href="rezept-signal.html" class="kachel">
+                    <span class="kachel-titel">Ende-zu-Ende-Messenger (Signal-Protokoll)</span>
+                    <span class="kachel-text">Nur die Endgeräte können mitlesen. Mit der Double Ratchet bekommt jede Nachricht einen neuen Schlüssel.</span>
+                </a>
+                                                                                                        
             </div>
         
         </form>
