@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krypto-Küche – Rezept hochladen</title>
+    <link rel="stylesheet" href="css/global-style.css">
+    <link rel="stylesheet" href="css/rezepte-style.css">
+    <link rel="stylesheet" href="css/rezept_hochladen-style.css">
+</head>
+<body>
+
+    <header class="site-header">
+       
+        <a href="index.html" class="logo">
+            <img src="bilder/krypto-kueche-logo-128.png" alt="Krypto-Küche Logo" height="48" width="48">
+            Krypto-Küche
+        </a>
+        <nav>
+            <ul>
+                <li><a href="rezepte.html">Rezepte</a></li>
+                <li><a href="a.html">Authentizität</a></li>
+                <li><a href="v.html">Vertraulichkeit</a></li>
+                <li><a href="i.html">Integrität</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+    <section class="hero">
+        <h1>Hier Rezept hochladen</h1>
+    </section>
+
+        <div class="rezept-seite">     <!-- der code ist aus den einzelnen rezeptseiten geklaut ich hab jetzt keine lust die gnazen nahmen abzuändern, deshalb heisst das hier alles so seltsam -->
+
+            <div class="rezept-box">
+                <h2>Rezept hochladen</h2>
+                <p>Wähle eine Datei und lade sie hoch.</p>
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                  <label for="datei" class="datei-button">Datei auswählen</label>
+                  <input type="file" id="datei" name="datei" hidden>
+                  <button type="submit">Hochladen</button>
+                  <span id="dateiname">Keine Datei ausgewählt</span>
+                </form>
+            </div>
+
+
+        </div>
+    </main>
+
+    <script>
+        // zeigt den Namen der gewaehlten Datei unter den Buttons an
+        document.getElementById("datei").addEventListener("change", function () {
+            document.getElementById("dateiname").textContent = this.files[0] ? this.files[0].name : "Keine Datei ausgewählt";
+        });
+    </script>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Krypto-Küche – WBA WS 26/27</p>
+        <a href="impressum.html">Impressum</a>
+    </footer>
+
+</body>
+</html>
