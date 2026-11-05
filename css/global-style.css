@@ -25,6 +25,8 @@ body {
     align-items: center;
     padding: 1rem 2rem;
     border-bottom: 1px solid #000;   /* die Linie aus dem Mockup */
+    gap: 2rem; 
+    position: relative;
 }
 
 .logo {
@@ -57,6 +59,59 @@ body {
 .site-header nav a.aktiv {
     font-weight: bold;
 }
+
+
+/* Suchleiste im Header */
+/* Suche im Header: Lupe, Feld klappt auf */
+.site-header nav {
+    margin-left: auto;
+}
+
+/* Suche: Lupe, Leiste klappt unter dem Header auf */
+.suche summary {
+    list-style: none;
+    display: flex;
+    cursor: pointer;
+}
+
+.suche summary::-webkit-details-marker {
+    display: none;
+}
+
+.suche summary:hover,
+.suche[open] summary {
+    color: #3d5afe;              /* Lupe blau, solange die Suche offen ist */
+}
+
+.suche form {
+    position: absolute;          /* bezogen auf den Header */
+    top: 100%;                   /* direkt unter dem Header */
+    left: 0;
+    right: 0;                    /* volle Breite */
+    padding: 1rem 2rem;
+    background: #eef1ff;
+    border-bottom: 1px solid #000;
+    z-index: 10;
+}
+
+.suche input {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;              /* Feld mittig */
+    padding: 0.5rem 0.75rem;
+    font: inherit;
+    background: #fff;
+    border: 2px solid #000;
+}
+
+.suche input:focus {
+    outline: none;
+    border-color: #3d5afe;
+}
+
+
+
 
 /* Hauptbereich */
 main {
@@ -122,4 +177,17 @@ main a {
     .site-footer {
         padding: 1rem;
     }
+    .suche form {
+        right: auto;
+        left: 0;                 /* auf dem Handy nach rechts aufklappen */
+    }
+}
+
+/* Inhalt rutscht nach unten, solange die Suche offen ist */
+main {
+    transition: padding-top 0.2s ease;
+}
+
+body:has(.suche[open]) main {
+    padding-top: 6.75rem;
 }
