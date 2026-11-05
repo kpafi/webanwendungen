@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krypto-Küche – Gitterkryptografie (Learning With Errors)</title>
+    <link rel="stylesheet" href="css/global-style.css">
+    <link rel="stylesheet" href="css/rezepte-style.css">
+    <link rel="stylesheet" href="css/beispielrezept-style.css">
+</head>
+<body>
+
+    <header class="site-header">
+
+        <a href="index.html" class="logo">
+            <img src="bilder/krypto-kueche-logo-128.png" alt="Krypto-Küche Logo" height="48" width="48">
+            Krypto-Küche
+        </a>
+        <nav>
+            <ul>
+                <li><a href="rezepte.html">Rezepte</a></li>
+                <li><a href="a.html">Authentizität</a></li>
+                <li><a href="v.html">Vertraulichkeit</a></li>
+                <li><a href="i.html">Integrität</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+    <!-- Hinweis: Die Recherche für die Inhalte dieser Seite wurde von Claude (KI) durchgeführt und anschließend gegengelesen. -->
+        <section class="hero">
+            <h1>Gitterkryptografie: Learning With Errors</h1>
+            <p>Eine Prise Salz zu viel – und niemand kann das Rezept mehr nachrechnen.</p>
+        </section>
+
+        <div class="rezept-seite">
+
+            <div class="rezept-box">
+                <h2>Definition</h2>
+                <p><em>Learning With Errors</em> (LWE, Oded Regev, 2005) ist das Grundrezept der meisten
+                Post-Quanten-Verfahren. Ein lineares Gleichungssystem zu lösen ist leicht. Addiert man aber zu
+                jedem Ergebnis einen kleinen zufälligen Fehler, wird das Finden der Lösung extrem schwer – nach
+                heutigem Wissen auch für Quantencomputer. Geometrisch entspricht das der Suche nach dem nächsten
+                Punkt in einem Gitter mit Hunderten Dimensionen. Auf LWE bauen <a href="rezept-ml-kem.html">ML-KEM</a>
+                und <a href="rezept-ml-dsa.html">ML-DSA</a> auf.</p>
+            </div>
+
+            <div class="rezept-reihe">
+
+                <div class="rezept-box zutaten">
+                    <h2>Zutaten</h2>
+                    <ul>
+                        <li>Ein Modulus q (öffentlich)</li>
+                        <li>Eine zufällige Matrix A (öffentlich)</li>
+                        <li>Ein geheimer Vektor s</li>
+                        <li>Ein Fehlervektor e mit kleinen Werten wie −1, 0, 1 (geheim)</li>
+                        <li>Eine Nachricht: ein Bit</li>
+                    </ul>
+                </div>
+
+                <div class="rezept-box zubereitung">
+                    <h2>Zubereitung</h2>
+                    <ol>
+                        <li>Alice berechnet b = A · s + e mod q. Öffentlicher Schlüssel ist (A, b), geheim bleibt s.</li>
+                        <li>Bob wählt zufällig einige Zeilen aus.</li>
+                        <li>Er addiert die gewählten Zeilen von A zu u und die passenden Einträge von b zu v.</li>
+                        <li>Für Bit 1 addiert er zusätzlich q/2 (abgerundet) auf v, für Bit 0 nichts. Er schickt (u, v).</li>
+                        <li>Alice rechnet v − u · s mod q. Übrig bleiben nur die kleinen Fehler – plus q/2, falls Bit 1.</li>
+                        <li>Liegt das Ergebnis nahe bei 0 (oder knapp unter q), war es Bit 0, liegt es nahe bei q/2, war es Bit 1.</li>
+                    </ol>
+                </div>
+
+            </div>
+
+            <div class="rezept-box">
+                <h2>Skizze</h2>
+                <img class="skizze" src="bilder/skizze-lwe.svg" alt="Spielzeug-Beispiel mit q = 17: Alice berechnet b = (8, 12, 2, 4) aus A, dem geheimen s = (3, 5) und kleinen Fehlern. Bob verschlüsselt Bit 1 zu u = (3, 4) und v = 5. Alice erhält 10, das nahe bei 8 liegt, also Bit 1.">
+                <p class="skizze-text">Mit dem geheimen s bleibt nach dem Entschlüsseln nur das Rauschen übrig. Ohne s sieht b aus wie Zufall.</p>
+                <p class="skizze-text">Skizze erstellt von Claude (KI)</p>
+            </div>
+
+            <div class="rezept-box">
+                <h2>Demo</h2>
+                <div class="demo-platzhalter">Platzhalter für die Demo</div>
+            </div>
+
+            <div class="rezept-box">
+                <h2>Tipps</h2>
+                <ul>
+                    <li>Ohne den Fehler e wäre es ein gewöhnliches Gleichungssystem, das man mit dem Gauß-Verfahren in Sekunden löst. Erst das „Rauschen“ macht es schwer.</li>
+                    <li>Die Fehler dürfen sich nicht zu stark aufsummieren, sonst kippt das Bit beim Entschlüsseln. Echte Verfahren wählen die Parameter so, dass das praktisch nie passiert.</li>
+                    <li>Die Skizze rechnet mit 2 Dimensionen – echte Verfahren mit Hunderten. ML-KEM nutzt Polynome mit 256 Koeffizienten und q = 3329 („Module-LWE“).</li>
+                    <li>Der Shor-Algorithmus, der <a href="rezept-rsa.html">RSA</a> und <a href="rezept-diffie-hellman.html">Diffie-Hellman</a> bricht, hilft hier nicht: Für Gitterprobleme ist kein effizienter Quantenalgorithmus bekannt.</li>
+                    <li>Gitter können noch mehr: Auch vollhomomorphe Verschlüsselung, mit der man auf verschlüsselten Daten rechnen kann, basiert auf LWE.</li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Krypto-Küche – WBA WS 26/27</p>
+        <a href="impressum.html">Impressum</a>
+    </footer>
+
+</body>
+</html>

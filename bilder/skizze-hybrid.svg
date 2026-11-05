@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 415" width="640" height="415">
+<style>
+    text { font-family: system-ui, sans-serif; font-size: 17px; fill: #000; }
+    .fett { font-weight: bold; }
+    .mitte { text-anchor: middle; }
+    .klein { font-size: 14px; fill: #555; }
+    .mono { font-family: monospace; font-size: 15px; }
+    .geheim { fill: #3d5afe; font-weight: bold; }
+    .box { fill: #fff; stroke: #000; stroke-width: 2; }
+    .box-blau { fill: #fff; stroke: #3d5afe; stroke-width: 3; }
+    .box-grau { fill: #fff; stroke: #000; stroke-width: 2; stroke-dasharray: 6 4; }
+    .linie { stroke: #000; stroke-width: 2; fill: none; }
+    .pfeil { stroke: #000; stroke-width: 2; fill: none; marker-end: url(#pfeil); }
+    .pfeil-blau { stroke: #3d5afe; stroke-width: 2; fill: none; marker-end: url(#pfeil-blau); }
+    .gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+    .pfeil-gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; marker-end: url(#pfeil); }
+</style>
+<defs>
+    <marker id="pfeil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#000"/>
+    </marker>
+    <marker id="pfeil-blau" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#3d5afe"/>
+    </marker>
+</defs>
+<rect x="30" y="45" width="140" height="40" class="box"/>
+<text x="100" y="71" class="mitte fett">Browser</text>
+<rect x="470" y="45" width="140" height="40" class="box"/>
+<text x="540" y="71" class="mitte fett">Server</text>
+<line x1="100" y1="85" x2="100" y2="225" class="gestrichelt"/>
+<line x1="540" y1="85" x2="540" y2="225" class="gestrichelt"/>
+<text x="320" y="115" class="mitte">ClientHello: ML-KEM-ek + X25519</text>
+<text x="320" y="133" class="mitte klein">1184 + 32 = 1216 Byte</text>
+<line x1="100" y1="145" x2="536" y2="145" class="pfeil"/>
+<text x="320" y="180" class="mitte">ServerHello: ML-KEM-Chiffrat + X25519</text>
+<text x="320" y="198" class="mitte klein">1088 + 32 = 1120 Byte</text>
+<line x1="540" y1="210" x2="104" y2="210" class="pfeil"/>
+<text x="320" y="243" class="mitte klein">beide Seiten berechnen</text>
+<rect x="125" y="255" width="175" height="40" class="box-blau"/>
+<text x="212" y="281" class="mitte geheim">ML-KEM-Geheimnis</text>
+<text x="320" y="282" class="mitte fett">‖</text>
+<rect x="340" y="255" width="175" height="40" class="box-blau"/>
+<text x="427" y="281" class="mitte geheim">X25519-Geheimnis</text>
+<line x1="212" y1="295" x2="290" y2="328" class="pfeil"/>
+<line x1="427" y1="295" x2="350" y2="328" class="pfeil"/>
+<rect x="190" y="330" width="260" height="40" class="box"/>
+<text x="320" y="356" class="mitte">HKDF → Sitzungsschlüssel</text>
+<text x="320" y="400" class="mitte klein">Ein Angreifer muss beide Verfahren brechen.</text>
+</svg>

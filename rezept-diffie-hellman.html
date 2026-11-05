@@ -88,6 +88,7 @@
                     <li>Diffie-Hellman allein authentisiert niemanden – ein Angreifer in der Mitte (Man-in-the-Middle) kann mit beiden getrennt einen Schlüssel aushandeln. Darum kombiniert man es mit <a href="rezept-signatur.html">Signaturen</a> und <a href="rezept-zertifikate.html">Zertifikaten</a>.</li>
                     <li>Heute nimmt man meist elliptische Kurven (ECDH, z. B. X25519) – gleiche Idee, kürzere Schlüssel.</li>
                     <li>Für jede Sitzung neue a und b wählen: Dann bleiben alte Sitzungen geheim, selbst wenn später ein Langzeitschlüssel gestohlen wird (Forward Secrecy).</li>
+                    <li>Ein Quantencomputer könnte den diskreten Logarithmus mit dem Shor-Algorithmus lösen. Der quantensichere Ersatz ist <a href="rezept-ml-kem.html">ML-KEM</a>, meist <a href="rezept-hybrid.html">hybrid</a> zusammen mit X25519.</li>
                 </ul>
             </div>
 

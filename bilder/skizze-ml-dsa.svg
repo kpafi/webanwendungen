@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+<style>
+    text { font-family: system-ui, sans-serif; font-size: 17px; fill: #000; }
+    .fett { font-weight: bold; }
+    .mitte { text-anchor: middle; }
+    .klein { font-size: 14px; fill: #555; }
+    .mono { font-family: monospace; font-size: 15px; }
+    .geheim { fill: #3d5afe; font-weight: bold; }
+    .box { fill: #fff; stroke: #000; stroke-width: 2; }
+    .box-blau { fill: #fff; stroke: #3d5afe; stroke-width: 3; }
+    .box-grau { fill: #fff; stroke: #000; stroke-width: 2; stroke-dasharray: 6 4; }
+    .linie { stroke: #000; stroke-width: 2; fill: none; }
+    .pfeil { stroke: #000; stroke-width: 2; fill: none; marker-end: url(#pfeil); }
+    .pfeil-blau { stroke: #3d5afe; stroke-width: 2; fill: none; marker-end: url(#pfeil-blau); }
+    .gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+    .pfeil-gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; marker-end: url(#pfeil); }
+</style>
+<defs>
+    <marker id="pfeil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#000"/>
+    </marker>
+    <marker id="pfeil-blau" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#3d5afe"/>
+    </marker>
+</defs>
+<text x="180" y="22" class="mitte fett">Alice signiert</text>
+<text x="480" y="22" class="mitte fett">Bob prüft</text>
+<rect x="60" y="40" width="240" height="40" class="box"/>
+<text x="180" y="66" class="mitte">1. Maske y würfeln</text>
+<line x1="180" y1="80" x2="180" y2="98" class="pfeil"/>
+<rect x="60" y="100" width="240" height="40" class="box"/>
+<text x="180" y="126" class="mitte">2. w1 = obere Bits von A·y</text>
+<line x1="180" y1="140" x2="180" y2="158" class="pfeil"/>
+<rect x="60" y="160" width="240" height="40" class="box"/>
+<text x="180" y="186" class="mitte">3. c = H(Nachricht, w1)</text>
+<line x1="180" y1="200" x2="180" y2="218" class="pfeil"/>
+<rect x="60" y="220" width="240" height="40" class="box"/>
+<text x="180" y="246" class="mitte">4. z = y + c · <tspan class="geheim">s1</tspan></text>
+<line x1="180" y1="260" x2="180" y2="278" class="pfeil"/>
+<rect x="60" y="280" width="240" height="40" class="box"/>
+<text x="180" y="306" class="mitte">5. z klein genug?</text>
+<path d="M60 300 H30 V60 H58" class="pfeil"/>
+<text x="22" y="180" class="mitte klein" transform="rotate(-90 22 180)">nein → neu würfeln</text>
+<line x1="180" y1="320" x2="180" y2="348" class="pfeil"/>
+<text x="192" y="339" class="klein">ja</text>
+<rect x="60" y="350" width="240" height="40" class="box-blau"/>
+<text x="180" y="376" class="mitte fett">Signatur (c, z, h)</text>
+<path d="M300 370 H330 V60 H358" class="pfeil-gestrichelt"/>
+<rect x="360" y="40" width="240" height="40" class="box"/>
+<text x="480" y="66" class="mitte">bekommt (c, z, h) und t</text>
+<line x1="480" y1="80" x2="480" y2="98" class="pfeil"/>
+<rect x="360" y="100" width="240" height="40" class="box"/>
+<text x="480" y="126" class="mitte">A·z − c·t = A·y − c·s2</text>
+<line x1="480" y1="140" x2="480" y2="158" class="pfeil"/>
+<rect x="360" y="160" width="240" height="40" class="box"/>
+<text x="480" y="186" class="mitte">obere Bits → w1' (mit h)</text>
+<line x1="480" y1="200" x2="480" y2="218" class="pfeil"/>
+<rect x="360" y="220" width="240" height="40" class="box"/>
+<text x="480" y="246" class="mitte">c = H(…, w1') und z klein?</text>
+<line x1="480" y1="260" x2="480" y2="278" class="pfeil"/>
+<rect x="360" y="280" width="240" height="40" class="box-blau"/>
+<text x="480" y="306" class="mitte fett">ja → Signatur gültig</text>
+<text x="480" y="350" class="mitte klein">Alice hat geprüft, dass c·s2</text>
+<text x="480" y="370" class="mitte klein">die oberen Bits nicht ändert</text>
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 445" width="640" height="445">
+<style>
+    text { font-family: system-ui, sans-serif; font-size: 17px; fill: #000; }
+    .fett { font-weight: bold; }
+    .mitte { text-anchor: middle; }
+    .klein { font-size: 14px; fill: #555; }
+    .mono { font-family: monospace; font-size: 15px; }
+    .geheim { fill: #3d5afe; font-weight: bold; }
+    .box { fill: #fff; stroke: #000; stroke-width: 2; }
+    .box-blau { fill: #fff; stroke: #3d5afe; stroke-width: 3; }
+    .box-grau { fill: #fff; stroke: #000; stroke-width: 2; stroke-dasharray: 6 4; }
+    .linie { stroke: #000; stroke-width: 2; fill: none; }
+    .pfeil { stroke: #000; stroke-width: 2; fill: none; marker-end: url(#pfeil); }
+    .pfeil-blau { stroke: #3d5afe; stroke-width: 2; fill: none; marker-end: url(#pfeil-blau); }
+    .gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+    .pfeil-gestrichelt { stroke: #000; stroke-width: 2; fill: none; stroke-dasharray: 6 4; marker-end: url(#pfeil); }
+</style>
+<defs>
+    <marker id="pfeil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#000"/>
+    </marker>
+    <marker id="pfeil-blau" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#3d5afe"/>
+    </marker>
+</defs>
+<polygon points="200,45 110,140 290,140" class="box"/>
+<line x1="224" y1="133" x2="202" y2="55" class="pfeil-blau"/>
+<circle cx="200" cy="45" r="7" fill="#3d5afe"/>
+<g fill="#fff" stroke="#000" stroke-width="2">
+    <circle cx="125" cy="140" r="5"/><circle cx="150" cy="140" r="5"/><circle cx="175" cy="140" r="5"/><circle cx="200" cy="140" r="5"/>
+    <circle cx="250" cy="140" r="5"/><circle cx="275" cy="140" r="5"/>
+</g>
+<circle cx="225" cy="140" r="6" fill="#3d5afe"/>
+<line x1="225" y1="188" x2="225" y2="150" class="pfeil-blau"/>
+<polygon points="225,195 135,290 315,290" class="box"/>
+<line x1="176" y1="283" x2="222" y2="205" class="pfeil-blau"/>
+<circle cx="225" cy="195" r="7" fill="#3d5afe"/>
+<g fill="#fff" stroke="#000" stroke-width="2">
+    <circle cx="150" cy="290" r="5"/><circle cx="200" cy="290" r="5"/><circle cx="225" cy="290" r="5"/>
+    <circle cx="250" cy="290" r="5"/><circle cx="275" cy="290" r="5"/><circle cx="300" cy="290" r="5"/>
+</g>
+<circle cx="175" cy="290" r="6" fill="#3d5afe"/>
+<line x1="175" y1="320" x2="175" y2="300" class="pfeil-blau"/>
+<line x1="115" y1="345" x2="175" y2="322" class="linie"/>
+<line x1="175" y1="345" x2="175" y2="322" class="linie"/>
+<line x1="235" y1="345" x2="175" y2="322" class="linie"/>
+<polygon points="115,345 90,395 140,395" class="box"/>
+<polygon points="175,345 150,395 200,395" class="box"/>
+<polygon points="235,345 210,395 260,395" class="box"/>
+<circle cx="100" cy="395" r="5" fill="#3d5afe"/>
+<circle cx="185" cy="395" r="5" fill="#3d5afe"/>
+<circle cx="225" cy="395" r="5" fill="#3d5afe"/>
+<text x="340" y="50" class="fett">oberer Merkle-Baum</text>
+<text x="340" y="72" class="klein">Wurzel = öffentlicher Schlüssel</text>
+<text x="340" y="165">WOTS+ signiert die Wurzel</text>
+<text x="340" y="185" class="klein">des Baums darunter</text>
+<text x="340" y="245" class="fett">unterer Merkle-Baum</text>
+<text x="340" y="267" class="klein">in echt 7 bis 22 Schichten</text>
+<text x="340" y="318">WOTS+ signiert FORS</text>
+<text x="340" y="370" class="fett">FORS</text>
+<text x="340" y="392" class="klein">deckt zum Nachrichten-Hash</text>
+<text x="340" y="410" class="klein">passende Blätter auf</text>
+<text x="320" y="432" class="mitte klein">Prüfen: von unten nach oben nur Hashes nachrechnen und mit der Wurzel vergleichen</text>
+</svg>
