@@ -64,6 +64,31 @@ main {
     padding: 2rem;
 }
 
+.kachel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 180px;
+    padding: 1.5rem;
+    border: 2px solid #000;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;  /* NEU */
+}
+
+/* Hover: Kachel hebt sich leicht an */
+.kachel:hover {
+    border-color: #3d5afe;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 0 #3d5afe;
+}
+
+/* Hover auf eine schon ausgewählte Kachel */
+.kachel:has(input:checked):hover {
+    box-shadow: 0 6px 0 #000;
+}
+
+
+
 /* Footer */
 .site-footer {
     display: flex;

@@ -1,4 +1,6 @@
 const formular = document.getElementById("filter-form");
+const hinweis = document.getElementById("filter-hinweis");
+
 
 formular.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -21,5 +23,12 @@ formular.addEventListener("submit", function (event) {
         window.location.href = "v.html";
     } else if (integr) {
         window.location.href = "i.html";
+    } else {
+    hinweis.textContent = "Bitte wähle zuerst mindestens ein Kästchen aus.";
     }
+});
+
+// Hinweis wieder ausblenden, sobald etwas angeklickt wird
+formular.addEventListener("change", function () {
+    hinweis.textContent = "";
 });

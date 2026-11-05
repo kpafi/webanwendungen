@@ -1,7 +1,6 @@
-/* AB HIER IST DER CSS DER INDEX.HTML*/
-/*---------------------------------------------------------------------------*/
 
-/* Startseite: Slogan */
+
+/* Slogan */
 .hero {
     text-align: center;
     margin: 2rem 0 3rem;
@@ -11,27 +10,47 @@
     font-size: 2.5rem;
 }
 
-/* Startseite: Filter-Kacheln */
+.hero p {
+    color: #555;
+}
+
+.blau {
+    color: #3d5afe;
+}
+
+/* Filter-Bereich */
+.filter {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #eef1ff;         /* hellblaue Fläche */
+    text-align: center;
+}
+
+.anleitung {
+    margin-bottom: 2rem;
+}
+
+/* Kacheln */
 .kachel-raster {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
+    gap: 1.5rem;
 }
 
 .kachel {
     display: flex;
-    flex-direction: column;     /* Titel über Text */
+    flex-direction: column;
     gap: 0.5rem;
-    min-height: 180px;
     padding: 1.5rem;
+    text-align: left;
+    background: #fff;
     border: 2px solid #000;
-    cursor: pointer;            /* Hand-Cursor: zeigt "klickbar" */
+    cursor: pointer;
 }
 
 .kachel-titel {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: bold;
 }
 
@@ -39,15 +58,15 @@
     color: #555;
 }
 
-/* Checkbox selbst verstecken – die Kachel IST der Schalter */
+/* Checkbox verstecken – die Kachel IST der Schalter */
 .kachel input {
     position: absolute;
     opacity: 0;
 }
 
-/* Ausgewählte Kachel hervorheben */
+/* ausgewählte Kachel */
 .kachel:has(input:checked) {
-    background-color: #3d5afe;
+    background: #3d5afe;
     border-color: #3d5afe;
     color: #fff;
 }
@@ -56,31 +75,36 @@
     color: #e3e8ff;
 }
 
-/* Tastatur-Bedienung sichtbar machen */
-.kachel:has(input:focus-visible) {
-    outline: 3px solid #3d5afe;
-    outline-offset: 4px;
-}
-
-/* Anzeigen-Button */
-.filter {
-    text-align: center;          /* Button mittig */
-}
-
+/* Suchen-Button */
 .anzeigen-button {
-    margin-top: 2.5rem;
+    margin-top: 2rem;
     padding: 0.75rem 3rem;
     font-size: 1.1rem;
-    border: 2px solid #000;
-    background: #fff;
+    color: #fff;
+    background: #3d5afe;
+    border: none;
     cursor: pointer;
 }
 
 .anzeigen-button:hover {
     background: #000;
-    color: #fff;
 }
 
+.filter-hinweis {
+    color: #c62828;
+}
+
+/* So funktioniert's */
+.so-gehts {
+    max-width: 1000px;
+    margin: 4rem auto 0;
+}
+
+.so-gehts ol {
+    margin: 1rem 0 1rem 1.5rem;    /* Platz für die Nummern */
+}
+
+/* Handy: Kacheln untereinander */
 @media (max-width: 700px) {
     .kachel-raster {
         grid-template-columns: 1fr;

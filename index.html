@@ -1,71 +1,88 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krypto-Küche – Startseite</title>
-    <link rel="stylesheet" href="css/global-style.css">
-    <link rel="stylesheet" href="css/index-style.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Krypto-Küche – Startseite</title>
+        <link rel="stylesheet" href="css/global-style.css">
+        <link rel="stylesheet" href="css/index-style.css">
+    </head>
+    <body>
 
-    <header class="site-header">
-       
-        <a href="index.html" class="logo">
-            <img src="bilder/krypto-kueche-logo-128.png" alt="Krypto-Küche Logo" height="48" width="48">
-            Krypto-Küche
-        </a>
-        <nav>
-            <ul>
-                <li><a href="rezepte.html">Rezepte</a></li>
-                <li><a href="a.html">Authentizität</a></li>
-                <li><a href="v.html">Vertraulichkeit</a></li>
-                <li><a href="i.html">Integrität</a></li>
-            </ul>
-        </nav>
-    </header>
+        <header class="site-header">
+            <a href="index.html" class="logo">
+                <img src="bilder/krypto-kueche-logo-128.png" alt="Krypto-Küche Logo" height="48" width="48">
+                Krypto-Küche
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="rezepte.html">Rezepte</a></li>
+                    <li><a href="a.html">Authentizität</a></li>
+                    <li><a href="v.html">Vertraulichkeit</a></li>
+                    <li><a href="i.html">Integrität</a></li>
+                </ul>
+            </nav>
+        </header>
 
-    <main>
-        <section class="hero">
-            <h1>Sicherheit nach Rezept.</h1>
-            <p>Wähle aus, was du schützen willst</p>
-        </section>
-    
-        
-        <form id="filter-form" class="filter">
-            <div class="kachel-raster">
-        
-                <label class="kachel">
-                    <input type="checkbox" id="check-a" name="schutzziel" value="a">
-                    <span class="kachel-titel">Authentizität</span>
-                    <span class="kachel-text">Die Nachricht stammt wirklich von dem, der behauptet, sie geschickt zu haben.</span>
-                </label>
-        
-                <label class="kachel">
-                    <input type="checkbox" id="check-v" name="schutzziel" value="v">
-                    <span class="kachel-titel">Vertraulichkeit</span>
-                    <span class="kachel-text">Nur Berechtigte können die Daten lesen.</span>
-                </label>
-        
-                <label class="kachel">
-                    <input type="checkbox" id="check-i" name="schutzziel" value="i">
-                    <span class="kachel-titel">Integrität</span>
-                    <span class="kachel-text">Die Daten wurden nicht unbemerkt verändert.</span>
-                </label>
-        
-            </div>
-        
-            <button type="submit" class="anzeigen-button">Anzeigen</button>
-        </form>
-        
-    </main>
+        <main>
+            <section class="hero">
+                <h1>Sicherheit nach <span class="blau">Rezept</span>.</h1>
+                <p>Kryptografische Verfahren, Schritt für Schritt erklärt.</p>
+            </section>
 
-    <footer class="site-footer">
-        <p>&copy; 2026 Krypto-Küche – WBA WS 26/27</p>
-        <a href="impressum.html">Impressum</a>
-    </footer>
-    
-    <script src="js/filter.js"></script>
+            <form id="filter-form" class="filter">
 
-</body>
+                <div class="anleitung">
+                    <h2>Was willst du schützen?</h2>
+                    <p>Klicke ein oder <strong>mehrere</strong> Kästchen an und dann auf <strong>Suchen</strong>.</p>
+                </div>
+
+                <div class="kachel-raster">
+
+                    <label class="kachel">
+                        <input type="checkbox" id="check-a" name="schutzziel" value="a">
+                        <span class="kachel-titel">Authentizität</span>
+                        <span class="kachel-text">Die Nachricht stammt wirklich von dem, der behauptet, sie geschickt zu haben.</span>
+                    </label>
+
+                    <label class="kachel">
+                        <input type="checkbox" id="check-v" name="schutzziel" value="v">
+                        <span class="kachel-titel">Vertraulichkeit</span>
+                        <span class="kachel-text">Nur Berechtigte können die Daten lesen.</span>
+                    </label>
+
+                    <label class="kachel">
+                        <input type="checkbox" id="check-i" name="schutzziel" value="i">
+                        <span class="kachel-titel">Integrität</span>
+                        <span class="kachel-text">Die Daten wurden nicht unbemerkt verändert.</span>
+                    </label>
+
+                </div>
+
+                <button type="submit" class="anzeigen-button">Suchen</button>
+                <p id="filter-hinweis" class="filter-hinweis" aria-live="polite"></p>
+            </form>
+
+            <section class="so-gehts">
+                <h2>So funktioniert die Krypto-Küche</h2>
+                <ol>
+                    <li><strong>Schutzziel wählen:</strong> Authentizität, Vertraulichkeit, Integrität oder eine Kombination.</li>
+                    <li><strong>Rezept aussuchen:</strong> Du siehst alle Verfahren, die dein Ziel erfüllen, z.&nbsp;B. AES, RSA oder HMAC.</li>
+                    <li><strong>Nachkochen:</strong> Jedes Rezept hat Zutaten, Zubereitung, eine Skizze und eine Demo.</li>
+                </ol>
+                <p>
+                    Lieber stöbern? <a href="rezepte.html">Alle Rezepte ansehen</a>.
+                    Ein Verfahren fehlt? <a href="rezept_hochladen.html">Rezept hochladen</a>.
+                </p>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p>&copy; 2026 Krypto-Küche – WBA WS 26/27</p>
+            <a href="impressum.html">Impressum</a>
+        </footer>
+
+        <script src="js/filter.js"></script>
+
+    </body>
 </html>
