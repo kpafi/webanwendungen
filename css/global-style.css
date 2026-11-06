@@ -113,6 +113,33 @@ body {
 
 
 
+/* Darkmode-Knopf rechts neben der Lupe */
+.darkmode-btn {
+    margin-left: -1rem;          /* naeher an die Lupe als der normale Header-Abstand */
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: inherit;
+    cursor: pointer;
+}
+
+.darkmode-btn:hover {
+    color: #3d5afe;
+}
+
+/* Darkmode: Seite invertieren, Bilder zurueck-invertieren
+   (SVG-Skizzen nicht, die sind transparent und sollen mit-invertiert werden) */
+html.dark {
+    background: #000;
+}
+
+html.dark body,
+html.dark img:not([src$=".svg"]) {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+
 /* Hauptbereich */
 main {
     flex: 1;            /* nimmt den restlichen Platz ein -> Footer bleibt unten */
