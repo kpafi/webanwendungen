@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/global-style.css">
     <link rel="stylesheet" href="css/rezepte-style.css">
     <link rel="stylesheet" href="css/rezept_hochladen-style.css">
+    <script src="js/darkmode.js"></script>
 </head>
 <body>
 
@@ -36,6 +37,7 @@
                 <input type="search" name="q" placeholder="Rezept suchen …" aria-label="Rezepte durchsuchen">
             </form>
         </details>
+        <button id="darkmode" class="darkmode-btn" aria-label="Darkmode umschalten">&#9680;</button>
     </header>
 
     <main>
@@ -50,7 +52,7 @@
                 <p>Wähle eine Datei und lade sie hoch.</p>
                 <form action="/upload" method="post" enctype="multipart/form-data">
                   <label for="datei" class="datei-button">Datei auswählen</label>
-                  <input type="file" id="datei" name="datei" hidden>
+                  <input type="file" id="datei" name="datei" accept=".html,.htm" required hidden>
                   <button type="submit">Hochladen</button>
                   <span id="dateiname">Keine Datei ausgewählt</span>
                 </form>
