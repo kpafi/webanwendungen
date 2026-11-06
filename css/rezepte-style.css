@@ -35,17 +35,6 @@
     text-decoration: none;      /* fuer Kacheln, die ein Link sind */
 }
 
-/* Kachel wird blau, wenn man mit der Maus drueber geht */
-.kachel:hover {
-    background-color: #3d5afe;
-    border-color: #3d5afe;
-    color: #fff;
-}
-
-.kachel:hover .kachel-text {
-    color: #e3e8ff;
-}
-
 .kachel-titel {
     font-size: 1.5rem;
     font-weight: bold;
