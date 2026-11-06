@@ -131,7 +131,12 @@ body {
 /* Darkmode: Seite invertieren, Bilder zurueck-invertieren
    (SVG-Skizzen nicht, die sind transparent und sollen mit-invertiert werden) */
 html.dark {
-    background: #000;
+    background: #111;            /* Hintergrundfarbe des dunklen Logos */
+}
+
+/* #eee wird durch das Invertieren zu #111 (= Logo-Hintergrund) */
+html.dark body {
+    background: #eee;
 }
 
 html.dark body,
