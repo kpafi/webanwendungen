@@ -139,6 +139,11 @@ html.dark img:not([src$=".svg"]) {
     filter: invert(1) hue-rotate(180deg);
 }
 
+/* im Darkmode das dunkle Logo anzeigen */
+html.dark .logo img {
+    content: url("../bilder/bildmarke-dunkel.jpg");
+}
+
 
 /* Hauptbereich */
 main {
