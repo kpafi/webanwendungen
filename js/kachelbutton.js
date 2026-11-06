@@ -39,3 +39,24 @@ document.addEventListener("keydown", function (event) {   //hab das hinzugefügt
         filterAnwenden();
     }
 });
+
+// Rezept-Anzahl oben rechts dynamisch zaehlen
+const anzahlEl = document.querySelector(".rezept-anzahl");
+if (anzahlEl) {
+    const aktuell = document.querySelectorAll(".kachel").length;
+    if (location.pathname.endsWith("rezepte.html")) {
+        localStorage.setItem("gesamtRezepte", aktuell);
+    }
+    const gesamt = localStorage.getItem("gesamtRezepte") || 26;
+    anzahlEl.textContent = aktuell + " / " + gesamt + " Rezepte";
+    fetch("rezepte.html")
+        .then(r => r.text())
+        .then(html => {
+            const alle = (html.match(/class="kachel"/g) || []).length;
+            if (alle) {
+                localStorage.setItem("gesamtRezepte", alle);
+                anzahlEl.textContent = aktuell + " / " + alle + " Rezepte";
+            }
+        })
+        .catch(() => {});
+}
