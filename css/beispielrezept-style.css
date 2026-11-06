@@ -78,3 +78,26 @@
         width: 100%;
     }
 }
+
+
+/* Schutzziele unter der Rezept-Ueberschrift */
+.hero .schutzziele {
+    margin: 0.5rem 0 0.75rem;
+    font-size: 0.9rem;
+}
+
+.schutzziele .ziel {
+    display: inline-block;
+    margin: 0.15rem 0.1rem;
+    padding: 0.1rem 0.6rem;
+    border: 2px solid #3d5afe;
+    border-radius: 999px;
+    color: #3d5afe;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.schutzziele .ziel:hover {
+    background: #3d5afe;
+    color: #fff;
+}
