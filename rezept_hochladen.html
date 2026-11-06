@@ -50,7 +50,7 @@
                 <p>Wähle eine Datei und lade sie hoch.</p>
                 <form action="/upload" method="post" enctype="multipart/form-data">
                   <label for="datei" class="datei-button">Datei auswählen</label>
-                  <input type="file" id="datei" name="datei" hidden>
+                  <input type="file" id="datei" name="datei" accept=".html,.htm" required hidden>
                   <button type="submit">Hochladen</button>
                   <span id="dateiname">Keine Datei ausgewählt</span>
                 </form>
