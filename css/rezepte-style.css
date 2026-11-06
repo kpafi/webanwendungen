@@ -182,3 +182,11 @@ hier mach ich dne kleinen filter oben*/
     font-size: 0.9rem;
     color: #555;
 }
+
+/* Rezept-Zaehler oben rechts unter dem Header */
+.rezept-anzahl {
+    text-align: right;
+    font-size: 0.85rem;
+    color: #555;
+    margin: -1.25rem 0 0;
+}
