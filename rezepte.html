@@ -38,7 +38,9 @@
     </header>
 
     <main>
-
+        <section class="hero">   <!-- die section wid von dem css teil hero gemanaged(also nur die überschrift, hab die von der index geklaut, und minimal angepasst, so dass alles einheitlich wirkt ) -->
+            <h1>Alle Rezepte</h1>
+        </section>
         <form id="filter-forkmklein" class="filterklein">
             <div class="kachel-rasterklein">
         
@@ -56,12 +58,9 @@
                     <input type="checkbox" id="check-i" name="schutzziel" value="i">
                     <span class="kachel-titelklein">Integrität</span>
                 </label>
+                <p class="hochladen-hinweis">Hier kannst du nochmal dein Filter anpassen. (Enter)</p>
 
-                <a href="rezept_hochladen.html" class="kachelklein hochladen">
-                    <span class="kachel-titelklein">Hochladen</span>
-                </a>
-                <p class="hochladen-hinweis">Hier kannst du dein eigenes Rezept hochladen.</p>
-              <!-- ich mach erstmal ohne button   <button type="submit" class="anzeigen-buttonklein">Anzeigen</button>      -->  
+            
             </div>
       
         </form>
@@ -197,7 +196,13 @@
                     <span class="kachel-titel">Hybrider Schlüsselaustausch</span>
                     <span class="kachel-text">X25519 und ML-KEM zusammen: sicher, solange mindestens eines der beiden Verfahren hält.</span>
                 </a>
-                                                                                                        
+                
+                <p class="hochladen-hinweis">Rezept nicht gefunden?</p>
+                <a href="rezept_hochladen.html" class="kachelklein hochladen">
+                    <span class="kachel-titelklein">Hochladen</span>
+                </a>
+                <p class="hochladen-hinweis">Hier kannst du dein eigenes Rezept hochladen.</p>
+              <!-- ich mach erstmal ohne button   <button type="submit" class="anzeigen-buttonklein">Anzeigen</button>      -->  
             </div>
         
         </form>
