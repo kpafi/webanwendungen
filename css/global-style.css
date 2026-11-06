@@ -27,6 +27,11 @@ body {
     border-bottom: 1px solid #000;   /* die Linie aus dem Mockup */
     gap: 2rem; 
     position: relative;
+
+    position: sticky;     /* bleibt oben kleben */
+    top: 0;              
+    z-index: 20;         
+    background: #fff; 
 }
 
 .logo {
