@@ -101,3 +101,19 @@
     background: #3d5afe;
     color: #fff;
 }
+
+/* Download-Button auf der Grundgeruest-Seite, gleicher Stil wie "Hochladen" */
+.vorlage-button {
+    padding: 0.5rem 1rem;
+    font: inherit;
+    color: #000;
+    border: 2px solid #000;
+    background: #fff;
+    cursor: pointer;
+}
+
+.vorlage-button:hover {
+    background: #3d5afe;
+    border-color: #3d5afe;
+    color: #fff;
+}
