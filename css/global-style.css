@@ -97,13 +97,14 @@ body {
     background: #eef1ff;
     border-bottom: 1px solid #000;
     z-index: 10;
+    display: flex;               /* Feld und Button nebeneinander */
+    justify-content: center;     /* beides mittig */
+    gap: 0.5rem;
 }
 
 .suche input {
-    display: block;
     width: 100%;
     max-width: 600px;
-    margin: 0 auto;              /* Feld mittig */
     padding: 0.5rem 0.75rem;
     font: inherit;
     background: #fff;
@@ -113,6 +114,20 @@ body {
 .suche input:focus {
     outline: none;
     border-color: #3d5afe;
+}
+
+/* Suchen-Button, wie der auf der Startseite nur kleiner */
+.suche button {
+    padding: 0.5rem 1rem;
+    font: inherit;
+    color: #fff;
+    background: #3d5afe;
+    border: none;
+    cursor: pointer;
+}
+
+.suche button:hover {
+    background: #000;
 }
 
 
@@ -223,6 +238,7 @@ main a {
     .suche form {
         right: auto;
         left: 0;                 /* auf dem Handy nach rechts aufklappen */
+        padding: 1rem;           /* damit das Suchfeld neben dem Button breit genug bleibt */
     }
 }
 
