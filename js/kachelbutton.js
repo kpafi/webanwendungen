@@ -25,8 +25,20 @@ function filterAnwenden() {
         window.location.href = "v.html";
     } else if (integr) {
         window.location.href = "i.html";
+    } else {
+        window.location.href = "rezepte.html";   // nichts mehr angeklickt -> wieder alle rezepte
     }
 }
+
+// sobald ein kaestchen im kleinen filter angeklickt wird, gleich die passende seite laden
+document.querySelector(".filterklein").addEventListener("change", filterAnwenden);
+
+// beim zurueckgehen merkt sich der browser die alten haken, die sollen aber zur seite passen
+window.addEventListener("pageshow", function () {
+    for (const box of document.querySelectorAll(".filterklein input")) {
+        box.checked = box.defaultChecked;
+    }
+});
 
 formular.addEventListener("submit", function (event) {  //die default funktion ausschalten muss man immer machen wenn man mit events arbeitet
     event.preventDefault();
