@@ -6,6 +6,7 @@
     <title>Krypto-Küche – Rezept hochladen</title>
     <link rel="stylesheet" href="css/global-style.css">
     <link rel="stylesheet" href="css/rezepte-style.css">
+    <link rel="stylesheet" href="css/beispielrezept-style.css">
     <link rel="stylesheet" href="css/rezept_hochladen-style.css">
     <script src="js/darkmode.js"></script>
 </head>
@@ -42,39 +43,69 @@
 
     <main>
     <section class="hero">
-        <h1>Hier Rezept hochladen</h1>
+        <h1>Eigenes Rezept schreiben</h1>
+        <p>Einfach die Kästen ausfüllen.</p>
     </section>
 
-        <div class="rezept-seite">     <!-- der code ist aus den einzelnen rezeptseiten geklaut ich hab jetzt keine lust die gnazen nahmen abzuändern, deshalb heisst das hier alles so seltsam -->
+        <form class="rezept-seite">     <!-- der code ist aus den einzelnen rezeptseiten geklaut ich hab jetzt keine lust die gnazen nahmen abzuändern, deshalb heisst das hier alles so seltsam -->
 
             <div class="rezept-box">
-                <h2>Rezept hochladen</h2>
-                <p>Wähle eine Datei und lade sie hoch.</p>
-                <form action="/upload" method="post" enctype="multipart/form-data">
-                  <label for="datei" class="datei-button">Datei auswählen</label>
-                  <input type="file" id="datei" name="datei" accept=".html,.htm" required hidden>
-                  <button type="submit">Hochladen</button>
-                  <span id="dateiname">Keine Datei ausgewählt</span>
-                </form>
-                <p class="vorlage-text">Noch kein Rezept? Lade das Grundgerüst herunter. Die Kommentare in der Datei erklären, was wo hinein muss.</p>
-                <a href="rezept-vorlage.html" download class="datei-button">Grundgerüst herunterladen</a>
+                <h2>Name</h2>
+                <label>Name des Rezepts
+                    <input type="text" required>
+                </label>
+                <label>Ein Satz, der Lust auf das Rezept macht
+                    <input type="text" required>
+                </label>
+                <p>Schutzziele:</p>
+                <label class="ziel-wahl"><input type="checkbox" name="ziel" value="a"> Authentizität</label>
+                <label class="ziel-wahl"><input type="checkbox" name="ziel" value="v"> Vertraulichkeit</label>
+                <label class="ziel-wahl"><input type="checkbox" name="ziel" value="i"> Integrität</label>
             </div>
 
+            <div class="rezept-box">
+                <h2>Definition</h2>
+                <textarea rows="4" required placeholder="Was ist das Verfahren und wofür braucht man es?"></textarea>
+            </div>
 
-        </div>
+            <div class="rezept-reihe">
+
+                <div class="rezept-box zutaten">
+                    <h2>Zutaten</h2>
+                    <textarea rows="6" required placeholder="Pro Zeile eine Zutat"></textarea>
+                </div>
+
+                <div class="rezept-box zubereitung">
+                    <h2>Zubereitung</h2>
+                    <textarea rows="6" required placeholder="Pro Zeile ein Schritt"></textarea>
+                </div>
+
+            </div>
+
+            <div class="rezept-box">
+                <h2>Skizze</h2>
+                <label>Bild auswählen (freiwillig)
+                    <input type="file" id="skizze" accept="image/*">
+                </label>
+                <img id="vorschau" class="skizze" alt="Vorschau der Skizze">
+            </div>
+
+            <div class="rezept-box">
+                <h2>Tipps</h2>
+                <textarea rows="4" required placeholder="Pro Zeile ein Tipp"></textarea>
+            </div>
+
+            <!-- der button macht noch nichts, das kommt spaeter mit dem server -->
+            <p class="hinzufuegen"><button type="button">Rezept hinzufügen</button></p>
+
+        </form>
     </main>
-
-    <script>
-        // zeigt den Namen der gewaehlten Datei unter den Buttons an
-        document.getElementById("datei").addEventListener("change", function () {
-            document.getElementById("dateiname").textContent = this.files[0] ? this.files[0].name : "Keine Datei ausgewählt";
-        });
-    </script>
 
     <footer class="site-footer">
         <p>&copy; 2026 Krypto-Küche – WBA WS 26/27</p>
         <a href="impressum.html">Impressum</a>
     </footer>
 
+    <script src="js/rezept-schreiben.js"></script>
 </body>
 </html>
