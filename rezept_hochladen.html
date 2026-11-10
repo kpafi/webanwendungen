@@ -67,6 +67,7 @@
             <div class="rezept-box">
                 <h2>Definition</h2>
                 <textarea rows="4" required placeholder="Was ist das Verfahren und wofür braucht man es?"></textarea>
+                <p class="text-vorschau"></p>
             </div>
 
             <div class="rezept-reihe">
@@ -74,11 +75,13 @@
                 <div class="rezept-box zutaten">
                     <h2>Zutaten</h2>
                     <textarea rows="6" required placeholder="Pro Zeile eine Zutat"></textarea>
+                    <ul class="text-vorschau"></ul>
                 </div>
 
                 <div class="rezept-box zubereitung">
                     <h2>Zubereitung</h2>
                     <textarea rows="6" required placeholder="Pro Zeile ein Schritt"></textarea>
+                    <ol class="text-vorschau"></ol>
                 </div>
 
             </div>
@@ -94,6 +97,21 @@
             <div class="rezept-box">
                 <h2>Tipps</h2>
                 <textarea rows="4" required placeholder="Pro Zeile ein Tipp"></textarea>
+                <ul class="text-vorschau"></ul>
+            </div>
+
+            <!-- hier kann man auf andere rezepte verlinken, die leiste bleibt beim scrollen unten kleben
+                 die liste soll spaeter vom server kommen -->
+            <div class="verweis">
+                <label for="verweis-rezept">Anderes Rezept verlinken:</label>
+                <select id="verweis-rezept">
+                    <!-- nur beispiele -->
+                    <option value="rezept-hmac.html">HMAC</option>
+                    <option value="rezept-sha256.html">SHA-256-Hashfunktion</option>
+                    <option value="rezept-signatur.html">Digitale Signatur</option>
+                </select>
+                <button type="button" id="verweis-knopf">Link einfügen</button>
+                <p id="verweis-hinweis">Klick im Text auf das Wort, das zum Link werden soll, und dann auf den Knopf.</p>
             </div>
 
             <!-- der button macht noch nichts, das kommt spaeter mit dem server -->

@@ -21,6 +21,20 @@
     border-color: #3d5afe;
 }
 
+/* vorschau unter den textfeldern, hier sieht man die links in blau */
+.text-vorschau {
+    margin-top: 0.5rem;
+    padding: 0.4rem;
+    border: 2px dashed #999;
+    white-space: pre-line;      /* zeilenumbrueche aus dem textfeld behalten */
+    overflow-wrap: anywhere;
+}
+
+/* solange nichts im textfeld steht braucht man auch keine vorschau */
+.text-vorschau:empty {
+    display: none;
+}
+
 /* die drei schutzziele nebeneinander */
 .ziel-wahl {
     display: inline-block;
@@ -34,8 +48,32 @@
     font: inherit;
 }
 
-/* der knopf vom dateifeld und der hinzufuegen button sehen gleich aus */
+/* leiste zum verlinken, klebt unten am bildschirm damit man nicht immer runterscrollen muss */
+.verweis {
+    position: sticky;
+    bottom: 0;
+    padding: 0.75rem 1rem;
+    margin-bottom: 2rem;
+    border: 1px solid #000;
+    background: #eef1ff;        /* gleiche farbe wie die suchleiste */
+}
+
+.verweis select {
+    max-width: 100%;
+    padding: 0.5rem;
+    font: inherit;
+    border: 2px solid #000;
+    background: #fff;
+}
+
+#verweis-hinweis {
+    margin-top: 0.4rem;
+    font-size: 0.9rem;
+}
+
+/* der knopf vom dateifeld, der link knopf und der hinzufuegen button sehen gleich aus */
 .hinzufuegen button,
+.verweis button,
 #skizze::file-selector-button {
     padding: 0.5rem 1rem;
     font: inherit;
@@ -45,6 +83,7 @@
 }
 
 .hinzufuegen button:hover,
+.verweis button:hover,
 #skizze::file-selector-button:hover {
     background: #3d5afe;
     border-color: #3d5afe;
@@ -64,4 +103,11 @@
 .hinzufuegen {
     text-align: center;
     margin-bottom: 2rem;
+}
+
+/* auf dem handy nimmt die leiste zu viel platz weg, da bleibt sie einfach unten stehen */
+@media (max-width: 700px) {
+    .verweis {
+        position: static;
+    }
 }
