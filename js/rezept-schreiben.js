@@ -31,6 +31,10 @@ function vorschauZeigen(feld) {
     // target="_blank" damit der link in einem neuen tab aufgeht und das formular nicht weg ist
     text = text.replace(/&lt;a href="(rezept-[a-z0-9-]+\.html)"&gt;(.*?)&lt;\/a&gt;/g, '<a href="$1" target="_blank">$2</a>');
 
+    // normale links von anderen webseiten (alles was mit http:// oder https:// anfaengt) werden auch anklickbar
+    // der link hoert beim leerzeichen oder anfuehrungszeichen auf, sonst koennte man damit wieder was einschleusen
+    text = text.replace(/(https?:\/\/[^\s"']+)/g, '<a href="$1" target="_blank">$1</a>');
+
     const vorschau = feld.nextElementSibling;
     if (vorschau.tagName === "P" || text === "") {
         vorschau.innerHTML = text;
