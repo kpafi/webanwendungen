@@ -95,14 +95,17 @@
             </div>
 
             <div class="rezept-box">
-                <h2>Demo</h2>
-                <div class="demo-platzhalter">Platzhalter für die Demo</div>
+                <h2>Weiterführende Links</h2>
+                <ul>
+                    <li><a href="https://de.wikipedia.org/wiki/RSA-Kryptosystem" target="_blank">Wikipedia: RSA-Kryptosystem</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=_rYYj3v4mFc" target="_blank">YouTube: Der RSA-Algorithmus einfach erklärt (Bildungsweg)</a></li>
+                </ul>
             </div>
 
             <div class="rezept-box">
                 <h2>Tipps</h2>
                 <ul>
-                    <li>„Lehrbuch-RSA“ wie in der Demo ist unsicher. In der Praxis wird die Nachricht vorher mit einem zufälligen Padding (OAEP) versehen.</li>
+                    <li>„Lehrbuch-RSA“ wie hier im Rezept ist unsicher. In der Praxis wird die Nachricht vorher mit einem zufälligen Padding (OAEP) versehen.</li>
                     <li>Schlüssellänge: mindestens 2048 Bit, besser 3072 Bit.</li>
                     <li>RSA ist langsam. Man verschlüsselt damit nur einen zufälligen <a href="rezept-aes.html">AES</a>-Schlüssel (hybride Verschlüsselung), wie bei <a href="rezept-pgp.html">OpenPGP</a>.</li>
                     <li>„Rückwärts“ benutzt – mit dem privaten Schlüssel rechnen, mit dem öffentlichen prüfen – wird RSA zur <a href="rezept-signatur.html">digitalen Signatur</a>.</li>

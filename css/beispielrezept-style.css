@@ -58,14 +58,6 @@
     font-size: 0.9rem;
 }
 
-/* platzhalter, hier kommt spaeter die demo hin */
-.demo-platzhalter {
-    padding: 2rem;
-    border: 2px dashed #999;
-    color: #777;
-    text-align: center;
-}
-
 /* auf dem handy untereinander */
 @media (max-width: 700px) {
     .rezept-reihe {
