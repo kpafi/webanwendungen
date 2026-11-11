@@ -45,13 +45,6 @@ formular.addEventListener("submit", function (event) {  //die default funktion a
     filterAnwenden();
 });
 
-document.addEventListener("keydown", function (event) {   //hab das hinzugefügt weil der naziegen button bei mir schlecht aussah, wenn jetzt enter gedrückt wird dann ist das wie der anzeigen button 
-    if (event.key === "Enter") {
-        event.preventDefault();
-        filterAnwenden();
-    }
-});
-
 // Rezept-Anzahl oben rechts dynamisch zaehlen
 const anzahlEl = document.querySelector(".rezept-anzahl");
 if (anzahlEl) {
