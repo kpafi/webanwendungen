@@ -1,0 +1,48 @@
+-- Krypto-Kueche: Datenbankschema (SQLite)
+-- Stil wie in der API-Vorlage: Tabellen gross, Spalten camelCase, jede Tabelle hat id
+
+CREATE TABLE Schutzziel (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	kuerzel TEXT NOT NULL UNIQUE,
+	bezeichnung TEXT NOT NULL,
+	beschreibung TEXT NOT NULL
+);
+
+CREATE TABLE Rezept (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	name TEXT NOT NULL,
+	kurztext TEXT NOT NULL,
+	slogan TEXT NOT NULL,
+	definition TEXT NOT NULL,
+	skizzePfad TEXT DEFAULT NULL,
+	skizzeAlt TEXT DEFAULT NULL,
+	skizzeText TEXT DEFAULT NULL,
+	erstelltAm TEXT NOT NULL
+);
+
+CREATE TABLE RezeptSchutzziel (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	rezeptId INTEGER NOT NULL,
+	schutzzielId INTEGER NOT NULL,
+	CONSTRAINT fk_RezeptSchutzziel1 FOREIGN KEY (rezeptId) REFERENCES Rezept(id),
+	CONSTRAINT fk_RezeptSchutzziel2 FOREIGN KEY (schutzzielId) REFERENCES Schutzziel(id),
+	CONSTRAINT uq_RezeptSchutzziel UNIQUE (rezeptId, schutzzielId)
+);
+
+CREATE TABLE Rezeptpunkt (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	rezeptId INTEGER NOT NULL,
+	art TEXT NOT NULL CHECK (art IN ('zutat', 'schritt', 'tipp')),
+	position INTEGER NOT NULL,
+	text TEXT NOT NULL,
+	CONSTRAINT fk_Rezeptpunkt1 FOREIGN KEY (rezeptId) REFERENCES Rezept(id)
+);
+
+CREATE TABLE Link (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	rezeptId INTEGER NOT NULL,
+	position INTEGER NOT NULL,
+	titel TEXT NOT NULL,
+	url TEXT NOT NULL,
+	CONSTRAINT fk_Link1 FOREIGN KEY (rezeptId) REFERENCES Rezept(id)
+);
