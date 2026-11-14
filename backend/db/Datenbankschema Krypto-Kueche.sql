@@ -1,5 +1,4 @@
--- Krypto-Kueche: Datenbankschema (SQLite)
--- Stil wie in der API-Vorlage: Tabellen gross, Spalten camelCase, jede Tabelle hat id
+-- Krypto-Kueche
 
 CREATE TABLE Schutzziel (
 	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
