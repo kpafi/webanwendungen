@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krypto-Küche – Rezept</title>
+    <link rel="stylesheet" href="css/global-style.css">
+    <link rel="stylesheet" href="css/rezepte-style.css">
+    <link rel="stylesheet" href="css/beispielrezept-style.css">
+    <script src="js/darkmode.js"></script>
+</head>
+<body>
+
+    <header class="site-header">
+
+        <a href="index.html" class="logo">
+            <img src="bilder/krypto-kueche-logo-128.png" alt="Krypto-Küche Logo" height="48" width="48">
+            Krypto-Küche
+        </a>
+        <nav>
+            <ul>
+                <li><a href="rezepte.html">Rezepte</a></li>
+                <li><a href="rezepte.html?schutzziel=a">Authentizität</a></li>
+                <li><a href="rezepte.html?schutzziel=v">Vertraulichkeit</a></li>
+                <li><a href="rezepte.html?schutzziel=i">Integrität</a></li>
+            </ul>
+        </nav>
+
+        <details class="suche">
+            <summary aria-label="Suche öffnen">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="11" cy="11" r="7"/>
+                    <line x1="16" y1="16" x2="21" y2="21"/>
+                </svg>
+            </summary>
+            <form role="search" action="rezepte.html">
+                <input type="search" name="q" placeholder="Rezept suchen …" aria-label="Rezepte durchsuchen">
+                <button type="submit">Suchen</button>
+            </form>
+        </details>
+        <button id="darkmode" class="darkmode-btn" aria-label="Darkmode umschalten">&#9680;</button>
+    </header>
+
+    <main>
+    <!-- Hinweis: Die Recherche für die Inhalte der Rezepte wurde von Claude (KI) durchgeführt und anschließend gegengelesen. -->
+    <!-- diese seite ist nur die vorlage, die inhalte holt js/rezept.js aus der datenbank und traegt sie hier ein -->
+        <section class="hero">
+            <h1 id="rezept-name">Rezept wird geladen …</h1>
+            <p class="schutzziele" id="rezept-schutzziele"></p>
+            <p id="rezept-slogan"></p>
+        </section>
+
+        <div class="rezept-seite" id="rezept-seite">
+
+            <div class="rezept-box">
+                <h2>Definition</h2>
+                <p id="rezept-definition"></p>
+            </div>
+
+            <div class="rezept-reihe">
+
+                <div class="rezept-box zutaten">
+                    <h2>Zutaten</h2>
+                    <ul id="rezept-zutaten"></ul>
+                </div>
+
+                <div class="rezept-box zubereitung">
+                    <h2>Zubereitung</h2>
+                    <ol id="rezept-schritte"></ol>
+                </div>
+
+            </div>
+
+            <div class="rezept-box" id="skizze-box">
+                <h2>Skizze</h2>
+                <img class="skizze" id="rezept-skizze" alt="">
+                <p class="skizze-text" id="rezept-skizze-text"></p>
+                <p class="skizze-text">Skizze erstellt von Claude (KI)</p>
+            </div>
+
+            <div class="rezept-box">
+                <h2>Weiterführende Links</h2>
+                <ul id="rezept-links"></ul>
+            </div>
+
+            <div class="rezept-box">
+                <h2>Tipps</h2>
+                <ul id="rezept-tipps"></ul>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Krypto-Küche – WBA WS 26/27</p>
+        <a href="impressum.html">Impressum</a>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/rezept.js"></script>
+</body>
+</html>

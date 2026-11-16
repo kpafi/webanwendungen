@@ -19,9 +19,9 @@
         <nav>
             <ul>
                 <li><a href="rezepte.html">Rezepte</a></li>
-                <li><a href="a.html">Authentizität</a></li>
-                <li><a href="v.html">Vertraulichkeit</a></li>
-                <li><a href="i.html">Integrität</a></li>
+                <li><a href="rezepte.html?schutzziel=a">Authentizität</a></li>
+                <li><a href="rezepte.html?schutzziel=v">Vertraulichkeit</a></li>
+                <li><a href="rezepte.html?schutzziel=i">Integrität</a></li>
             </ul>
         </nav>
 
@@ -41,175 +41,32 @@
     </header>
 
     <main>
-        <p class="rezept-anzahl">26 / 26 Rezepte</p>
+        <p class="rezept-anzahl" id="rezept-anzahl"></p>
         <section class="hero">   <!-- die section wid von dem css teil hero gemanaged(also nur die überschrift, hab die von der index geklaut, und minimal angepasst, so dass alles einheitlich wirkt ) -->
-            <h1>Alle Rezepte</h1>
+            <h1 id="ueberschrift">Alle Rezepte</h1>
         </section>
-        <form id="filter-forkmklein" class="filterklein">
-            <div class="kachel-rasterklein">
-        
-                <label class="kachelklein">
-                    <input type="checkbox" id="check-a" name="schutzziel" value="a">
-                    <span class="kachel-titelklein">Authentizität</span>
-                </label>
-        
-                <label class="kachelklein">
-                    <input type="checkbox" id="check-v" name="schutzziel" value="v">
-                    <span class="kachel-titelklein">Vertraulichkeit</span>
-                </label>
-        
-                <label class="kachelklein">
-                    <input type="checkbox" id="check-i" name="schutzziel" value="i">
-                    <span class="kachel-titelklein">Integrität</span>
-                </label>
-                <p class="hochladen-hinweis">Hier kannst du nochmal deinen Filter anpassen.</p>
 
-            
+        <!-- der kleine filter, die kaestchen fuer die schutzziele baut js/kachelbutton.js aus der datenbank -->
+        <form class="filterklein">
+            <div class="kachel-rasterklein" id="filter-raster">
+                <p class="hochladen-hinweis" id="filter-hinweis">Hier kannst du nochmal deinen Filter anpassen.</p>
             </div>
-      
         </form>
 
-        <form id="filter-form" class="filter">
-            <div class="kachel-raster">
-                <a href="rezept-caesar.html" class="kachel">
-                    <span class="kachel-titel">Caesar-Verschlüsselung</span>
-                    <span class="kachel-text">Jeder Buchstabe wird um ein paar Stellen im Alphabet verschoben. Einfach, aber leicht zu knacken.</span>
-                </a>
+        <div class="filter">
+            <p id="meldung"></p>
 
-                <a href="rezept-vigenere.html" class="kachel">
-                    <span class="kachel-titel">Vigenère-Verschlüsselung</span>
-                    <span class="kachel-text">Wie Caesar, aber jeder Buchstabe wird um einen anderen Wert verschoben – vorgegeben durch ein Schlüsselwort.</span>
-                </a>
+            <!-- hier kommen die rezept-kacheln rein, auch die baut js/kachelbutton.js aus der datenbank -->
+            <div class="kachel-raster" id="kacheln"></div>
 
-                <a href="rezept-otp.html" class="kachel">
-                    <span class="kachel-titel">One-Time-Pad</span>
-                    <span class="kachel-text">Nachricht XOR echt zufälliger Schlüssel, genauso lang wie die Nachricht. Beweisbar sicher, aber unpraktisch.</span>
-                </a>
-
-                <a href="rezept-aes.html" class="kachel">
-                    <span class="kachel-titel">AES-Verschlüsselung</span>
-                    <span class="kachel-text">Der weltweite Standard für symmetrische Verschlüsselung: ein geheimer Schlüssel zum Ver- und Entschlüsseln.</span>
-                </a>
-
-                <a href="rezept-rsa.html" class="kachel">
-                    <span class="kachel-titel">RSA-Verschlüsselung</span>
-                    <span class="kachel-text">Asymmetrisch: Jeder kann mit dem öffentlichen Schlüssel verschlüsseln, nur der Besitzer des privaten Schlüssels entschlüsselt.</span>
-                </a>
-
-                <a href="rezept-diffie-hellman.html" class="kachel">
-                    <span class="kachel-titel">Diffie-Hellman-Schlüsselaustausch</span>
-                    <span class="kachel-text">Zwei Parteien vereinbaren über eine abhörbare Leitung einen gemeinsamen geheimen Schlüssel.</span>
-                </a>
-
-                <a href="rezept-sha256.html" class="kachel">
-                    <span class="kachel-titel">SHA-256-Hashfunktion</span>
-                    <span class="kachel-text">Berechnet aus beliebigen Daten einen 256-Bit-Fingerabdruck. Jede Änderung ergibt einen völlig anderen Wert.</span>
-                </a>
-
-                <a href="rezept-merkle.html" class="kachel">
-                    <span class="kachel-titel">Merkle-Baum</span>
-                    <span class="kachel-text">Viele Datenblöcke, ein einziger Hash an der Spitze. Jede Änderung irgendwo unten verändert die Wurzel.</span>
-                </a>
-
-                <a href="rezept-hmac.html" class="kachel">
-                    <span class="kachel-titel">HMAC</span>
-                    <span class="kachel-text">Eine Prüfsumme mit geheimem Schlüssel: zeigt, dass die Nachricht unverändert ist und vom Schlüsselinhaber stammt.</span>
-                </a>
-
-                <a href="rezept-signatur.html" class="kachel">
-                    <span class="kachel-titel">Digitale Signatur</span>
-                    <span class="kachel-text">Mit dem privaten Schlüssel unterschreiben, mit dem öffentlichen prüfen. Beweist Herkunft und Unverändertheit.</span>
-                </a>
-
-                <a href="rezept-jwt.html" class="kachel">
-                    <span class="kachel-titel">JSON Web Token (JWT)</span>
-                    <span class="kachel-text">Ein signiertes Ticket, mit dem sich Webanwendungen merken, wer eingeloggt ist. Änderungen fallen sofort auf.</span>
-                </a>
-
-                <a href="rezept-passwort-hashing.html" class="kachel">
-                    <span class="kachel-titel">Passwort-Hashing</span>
-                    <span class="kachel-text">Passwörter nie im Klartext speichern, sondern gesalzen und absichtlich langsam gehasht.</span>
-                </a>
-
-                <a href="rezept-totp.html" class="kachel">
-                    <span class="kachel-titel">Zwei-Faktor mit TOTP</span>
-                    <span class="kachel-text">Authenticator-App und Server berechnen aus Geheimnis und Uhrzeit alle 30 Sekunden denselben Code.</span>
-                </a>
-
-                <a href="rezept-challenge-response.html" class="kachel">
-                    <span class="kachel-titel">Challenge-Response</span>
-                    <span class="kachel-text">Der Prüfer stellt eine zufällige Frage, nur wer das Geheimnis kennt, kann richtig antworten.</span>
-                </a>
-
-                <a href="rezept-passkeys.html" class="kachel">
-                    <span class="kachel-titel">Passkeys (FIDO2)</span>
-                    <span class="kachel-text">Login per Fingerabdruck oder PIN: Das Gerät signiert eine Challenge, der Server kennt nur den öffentlichen Schlüssel.</span>
-                </a>
-
-                <a href="rezept-zertifikate.html" class="kachel">
-                    <span class="kachel-titel">Zertifikate & PKI</span>
-                    <span class="kachel-text">Eine Zertifizierungsstelle bestätigt mit ihrer Signatur, wem ein öffentlicher Schlüssel gehört.</span>
-                </a>
-
-                <a href="rezept-aes-gcm.html" class="kachel">
-                    <span class="kachel-titel">AES-GCM</span>
-                    <span class="kachel-text">Authentisierte Verschlüsselung: verschlüsselt die Daten und erkennt jede Veränderung.</span>
-                </a>
-
-                <a href="rezept-tls.html" class="kachel">
-                    <span class="kachel-titel">TLS 1.3 (HTTPS)</span>
-                    <span class="kachel-text">Das „S“ in HTTPS: Schlüsselaustausch, Zertifikate und authentisierte Verschlüsselung kombiniert.</span>
-                </a>
-
-                <a href="rezept-ssh.html" class="kachel">
-                    <span class="kachel-titel">SSH</span>
-                    <span class="kachel-text">Sicherer Fernzugriff auf Server: Schlüsselaustausch, Host-Keys und Public-Key-Login.</span>
-                </a>
-
-                <a href="rezept-pgp.html" class="kachel">
-                    <span class="kachel-titel">E-Mail-Verschlüsselung mit OpenPGP</span>
-                    <span class="kachel-text">Hybride Verschlüsselung plus Signatur: Nur der Empfänger kann die Mail lesen und weiß, von wem sie ist.</span>
-                </a>
-
-                <a href="rezept-signal.html" class="kachel">
-                    <span class="kachel-titel">Ende-zu-Ende-Messenger (Signal-Protokoll)</span>
-                    <span class="kachel-text">Nur die Endgeräte können mitlesen. Mit der Double Ratchet bekommt jede Nachricht einen neuen Schlüssel.</span>
-                </a>
-
-                <a href="rezept-lwe.html" class="kachel">
-                    <span class="kachel-titel">Gitterkryptografie (LWE)</span>
-                    <span class="kachel-text">Gleichungen mit absichtlich eingebauten kleinen Fehlern – die Grundlage der meisten Post-Quanten-Verfahren.</span>
-                </a>
-
-                <a href="rezept-ml-kem.html" class="kachel">
-                    <span class="kachel-titel">ML-KEM (Kyber)</span>
-                    <span class="kachel-text">Quantensicherer Schlüsselaustausch: Ein zufälliger Schlüssel wird eingekapselt und nur der Empfänger packt ihn aus.</span>
-                </a>
-
-                <a href="rezept-ml-dsa.html" class="kachel">
-                    <span class="kachel-titel">ML-DSA (Dilithium)</span>
-                    <span class="kachel-text">Quantensichere Signatur auf Basis von Gittern – der Nachfolger von RSA- und ECDSA-Signaturen.</span>
-                </a>
-
-                <a href="rezept-slh-dsa.html" class="kachel">
-                    <span class="kachel-titel">SLH-DSA (SPHINCS+)</span>
-                    <span class="kachel-text">Quantensichere Signatur nur aus Hashfunktionen und Merkle-Bäumen. Große Signaturen, dafür besonders konservativ.</span>
-                </a>
-
-                <a href="rezept-hybrid.html" class="kachel">
-                    <span class="kachel-titel">Hybrider Schlüsselaustausch</span>
-                    <span class="kachel-text">X25519 und ML-KEM zusammen: sicher, solange mindestens eines der beiden Verfahren hält.</span>
-                </a>
-                
+            <div class="kachel-raster hochladen-bereich">
                 <p class="hochladen-hinweis">Rezept nicht gefunden?</p>
                 <a href="rezept_hochladen.html" class="kachelklein hochladen">
                     <span class="kachel-titelklein">Hochladen</span>
                 </a>
                 <p class="hochladen-hinweis">Hier kannst du dein eigenes Rezept hochladen.</p>
-              <!-- ich mach erstmal ohne button   <button type="submit" class="anzeigen-buttonklein">Anzeigen</button>      -->  
             </div>
-        
-        </form>
+        </div>
     </main>
 
     <footer class="site-footer">
@@ -217,6 +74,7 @@
         <a href="impressum.html">Impressum</a>
     </footer>
 
-	<script src="js/kachelbutton.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/kachelbutton.js"></script>
 </body>
 </html>

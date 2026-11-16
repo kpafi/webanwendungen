@@ -190,3 +190,8 @@ hier mach ich dne kleinen filter oben*/
     color: #555;
     margin: -1.25rem 0 0;
 }
+
+/* der hochladen-teil ist ein eigenes raster unter den rezept-kacheln, deshalb abstand nach oben */
+.hochladen-bereich {
+    margin-top: 2rem;
+}
