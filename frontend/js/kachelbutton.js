@@ -1,5 +1,5 @@
-// adresse vom backend (rest-api), falls sich der port aendert nur hier anpassen
-const API = "http://localhost:8000/api";
+// die rest-api laeuft im selben server wie das frontend, deshalb reicht "/api"
+const API = "/api";
 
 // hier merken wir uns alle rezepte aus der datenbank,
 // dann muss beim filtern nicht jedes mal neu geladen werden
@@ -16,7 +16,7 @@ if (parameter.get("schutzziel")) {
 
 // schutzziele aus der datenbank holen und fuer jedes ein kaestchen in den kleinen filter bauen
 $.ajax({
-    url: API + "/schutzziel/alle",
+    url: API + "/schutzziel",
     method: "GET",
     dataType: "json"
 }).done(function (schutzziele) {
@@ -46,7 +46,7 @@ $.ajax({
 
 // alle rezepte aus der datenbank holen und anzeigen
 $.ajax({
-    url: API + "/rezept/alle",
+    url: API + "/rezept",
     method: "GET",
     dataType: "json"
 }).done(function (rezepte) {
@@ -122,15 +122,10 @@ function kachelnZeigen() {
 
 // ein rezept passt nur, wenn es ALLE gewaehlten schutzziele hat
 // ist nichts gewaehlt, passt jedes rezept
+// rezept.schutzziele ist eine liste von kuerzeln, z.b. ["a", "i"]
 function passtZumFilter(rezept) {
     for (const kuerzel of gewaehlt) {
-        let gefunden = false;
-        for (const ziel of rezept.schutzziele) {
-            if (ziel.kuerzel === kuerzel) {
-                gefunden = true;
-            }
-        }
-        if (!gefunden) {
+        if (!rezept.schutzziele.includes(kuerzel)) {
             return false;
         }
     }

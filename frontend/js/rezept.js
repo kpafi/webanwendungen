@@ -1,5 +1,5 @@
-// adresse vom backend (rest-api), falls sich der port aendert nur hier anpassen
-const API = "http://localhost:8000/api";
+// die rest-api laeuft im selben server wie das frontend, deshalb reicht "/api"
+const API = "/api";
 
 // die id vom rezept steht hinten in der adresse, z.b. rezept.html?id=4
 const parameter = new URLSearchParams(window.location.search);
@@ -9,7 +9,7 @@ if (id === null || id === "") {
     fehlerZeigen("Kein Rezept ausgewählt");
 } else {
     $.ajax({
-        url: API + "/rezept/gib/" + id,
+        url: API + "/rezept/" + id,
         method: "GET",
         dataType: "json"
     }).done(function (rezept) {
@@ -30,17 +30,7 @@ function rezeptZeigen(rezept) {
     // deshalb innerHTML, mit textContent wuerde man die tags als text sehen
     document.getElementById("rezept-definition").innerHTML = rezept.definition;
 
-    // schutzziele als links, die fuehren zur rezeptliste mit passendem filter
-    const ziele = document.getElementById("rezept-schutzziele");
-    ziele.textContent = "Schutzziele: ";
-    for (const ziel of rezept.schutzziele) {
-        const link = document.createElement("a");
-        link.href = "rezepte.html?schutzziel=" + ziel.kuerzel;
-        link.className = "ziel";
-        link.textContent = ziel.bezeichnung;
-        ziele.appendChild(link);
-        ziele.append(" ");      // leerzeichen zwischen den links
-    }
+    schutzzieleZeigen(rezept.schutzziele);
 
     listeFuellen("rezept-zutaten", rezept.zutaten);
     listeFuellen("rezept-schritte", rezept.schritte);
@@ -71,12 +61,38 @@ function rezeptZeigen(rezept) {
 }
 
 
+// schutzziele als links, die fuehren zur rezeptliste mit passendem filter
+// im rezept stehen nur die kuerzel (z.b. ["a", "i"]),
+// den ausgeschriebenen namen holen wir uns aus der schutzziel-liste
+function schutzzieleZeigen(kuerzelListe) {
+    $.ajax({
+        url: API + "/schutzziel",
+        method: "GET",
+        dataType: "json"
+    }).done(function (schutzziele) {
+        const ziele = document.getElementById("rezept-schutzziele");
+        ziele.textContent = "Schutzziele: ";
+        for (const ziel of schutzziele) {
+            if (!kuerzelListe.includes(ziel.kuerzel)) {
+                continue;
+            }
+            const link = document.createElement("a");
+            link.href = "rezepte.html?schutzziel=" + ziel.kuerzel;
+            link.className = "ziel";
+            link.textContent = ziel.bezeichnung;
+            ziele.appendChild(link);
+            ziele.append(" ");      // leerzeichen zwischen den links
+        }
+    });
+}
+
+
 // macht aus jedem punkt (zutat, schritt oder tipp) einen eigenen listenpunkt
 function listeFuellen(listenId, punkte) {
     const liste = document.getElementById(listenId);
     for (const punkt of punkte) {
         const li = document.createElement("li");
-        li.innerHTML = punkt.text;      // auch hier koennen links drin sein
+        li.innerHTML = punkt;       // auch hier koennen links drin sein
         liste.appendChild(li);
     }
 }
