@@ -1,0 +1,191 @@
+{
+  "info": {
+    "name": "Krypto-Küche",
+    "description": "REST-API auf localhost:3000. Aktiviere schreibtests nur für einen Server mit einer Kopie der Datenbank.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "basisUrl", "value": "http://localhost:3000" },
+    { "key": "schreibtests", "value": "false" }
+  ],
+  "item": [
+    {
+      "name": "Lesen und Eingaben prüfen",
+      "item": [
+        {
+          "name": "Schutzziele abrufen",
+          "request": "{{basisUrl}}/api/schutzziel",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 und Schutzziele mit Kürzeln', function () {",
+            "    pm.response.to.have.status(200);",
+            "    const ziele = pm.response.json();",
+            "    pm.expect(ziele.map(ziel => ziel.kuerzel)).to.include.members(['a', 'v', 'i']);",
+            "    ziele.forEach(ziel => pm.expect(ziel).to.have.all.keys('id', 'kuerzel', 'bezeichnung', 'beschreibung'));",
+            "});"
+          ] } }]
+        },
+        {
+          "name": "Alle Rezepte abrufen",
+          "request": "{{basisUrl}}/api/rezept",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 und Rezeptliste nach ID', function () {",
+            "    pm.response.to.have.status(200);",
+            "    const ids = pm.response.json().map(rezept => rezept.id);",
+            "    pm.expect(ids).to.include(1);",
+            "    pm.expect(ids).to.deep.equal([...ids].sort((a, b) => a - b));",
+            "});"
+          ] } }]
+        },
+        {
+          "name": "Rezept 1 abrufen",
+          "request": "{{basisUrl}}/api/rezept/1",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 und Rezeptdetails', function () {",
+            "    pm.response.to.have.status(200);",
+            "    const rezept = pm.response.json();",
+            "    pm.expect(rezept.id).to.equal(1);",
+            "    pm.expect(rezept.definition).to.be.a('string');",
+            "    for (const feld of ['schutzziele', 'zutaten', 'schritte', 'tipps', 'links']) {",
+            "        pm.expect(rezept[feld]).to.be.an('array');",
+            "    }",
+            "});"
+          ] } }]
+        },
+        {
+          "name": "Nach zwei Schutzzielen filtern",
+          "request": "{{basisUrl}}/api/rezept?schutzziel=a,i",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 und jedes Ergebnis enthält beide Kürzel', function () {",
+            "    pm.response.to.have.status(200);",
+            "    const rezepte = pm.response.json();",
+            "    pm.expect(rezepte).to.be.an('array').that.is.not.empty;",
+            "    rezepte.forEach(rezept => pm.expect(rezept.schutzziele).to.include.members(['a', 'i']));",
+            "});"
+          ] } }]
+        },
+        {
+          "name": "Filterparameter wiederholen",
+          "request": "{{basisUrl}}/api/rezept?schutzziel=a&schutzziel=i",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 und jedes Ergebnis enthält beide Kürzel', function () {",
+            "    pm.response.to.have.status(200);",
+            "    const rezepte = pm.response.json();",
+            "    pm.expect(rezepte).to.be.an('array').that.is.not.empty;",
+            "    rezepte.forEach(rezept => pm.expect(rezept.schutzziele).to.include.members(['a', 'i']));",
+            "});"
+          ] } }]
+        },
+        {
+          "name": "Unbekanntes Schutzziel",
+          "request": "{{basisUrl}}/api/rezept?schutzziel=unbekannt",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('400 mit JSON-Fehlermeldung', function () {",
+            "    pm.response.to.have.status(400);",
+            "    pm.expect(pm.response.json().fehler).to.include('Schutzziel-Kürzel');",
+            "});"
+          ] } }]
+        },
+        {
+          "name": "Ungültige Rezept-ID",
+          "request": "{{basisUrl}}/api/rezept/0",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('400 mit JSON-Fehlermeldung', function () {",
+            "    pm.response.to.have.status(400);",
+            "    pm.expect(pm.response.json().fehler).to.include('positive ganze Zahl');",
+            "});"
+          ] } }]
+        },
+        {
+          "name": "Rezept nicht gefunden",
+          "request": "{{basisUrl}}/api/rezept/9007199254740991",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('404 mit JSON-Fehlermeldung', function () {",
+            "    pm.response.to.have.status(404);",
+            "    pm.expect(pm.response.json().fehler).to.equal('Rezept nicht gefunden.');",
+            "});"
+          ] } }]
+        },
+        {
+          "name": "Rezept ohne Pflichtfelder ablehnen",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{basisUrl}}/api/rezept",
+            "body": { "mode": "raw", "raw": "{}", "options": { "raw": { "language": "json" } } }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('400 mit Hinweis auf das Pflichtfeld', function () {",
+            "    pm.response.to.have.status(400);",
+            "    pm.expect(pm.response.json().fehler).to.include('name ist ein Pflichtfeld');",
+            "});"
+          ] } }]
+        },
+        {
+          "name": "Fehlerhaftes JSON ablehnen",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{basisUrl}}/api/rezept",
+            "body": { "mode": "raw", "raw": "{\"name\":", "options": { "raw": { "language": "json" } } }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('400 mit Hinweis auf ungültiges JSON', function () {",
+            "    pm.response.to.have.status(400);",
+            "    pm.expect(pm.response.json().fehler).to.equal('Ungültiges JSON.');",
+            "});"
+          ] } }]
+        }
+      ]
+    },
+    {
+      "name": "Schreibtest mit Datenbankkopie",
+      "event": [{ "listen": "prerequest", "script": { "exec": [
+        "if (pm.variables.get('schreibtests') !== 'true') {",
+        "    pm.execution.skipRequest();",
+        "}"
+      ] } }],
+      "item": [
+        {
+          "name": "Testrezept anlegen",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{basisUrl}}/api/rezept",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Postman-Testrezept\",\n  \"kurztext\": \"Ein Beispiel für den API-Test.\",\n  \"slogan\": \"Zwei Texte vergleichen\",\n  \"definition\": \"Ein einfaches Beispiel zur Integrität.\",\n  \"schutzziele\": [\"a\", \"i\", \"i\"],\n  \"zutaten\": [\"Original\", \"Kopie\"],\n  \"schritte\": [\"Beide Texte vergleichen.\", \"Unterschiede notieren.\"],\n  \"tipps\": [\"Auch Leerzeichen beachten.\"],\n  \"links\": [{ \"titel\": \"Beispiel\", \"url\": \"https://example.org/\" }]\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('201 mit Location und vollständigem Rezept', function () {",
+            "    pm.response.to.have.status(201);",
+            "    const rezept = pm.response.json();",
+            "    const eingabe = JSON.parse(pm.request.body.raw);",
+            "    const pfad = pm.response.headers.get('Location');",
+            "    pm.expect(rezept.id).to.be.a('number');",
+            "    pm.expect(pfad).to.equal('/api/rezept/' + rezept.id);",
+            "    pm.expect(rezept.erstelltAm).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);",
+            "    pm.expect(rezept.schutzziele).to.deep.equal(['a', 'i']);",
+            "    for (const feld of ['name', 'kurztext', 'slogan', 'definition', 'zutaten', 'schritte', 'tipps', 'links']) {",
+            "        pm.expect(rezept[feld]).to.deep.equal(eingabe[feld]);",
+            "    }",
+            "    pm.variables.set('testRezeptPfad', pfad);",
+            "    pm.variables.set('testRezept', JSON.stringify(rezept));",
+            "});"
+          ] } }]
+        },
+        {
+          "name": "Gespeichertes Testrezept abrufen",
+          "request": "{{basisUrl}}{{testRezeptPfad}}",
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 und dieselben Daten wie beim Speichern', function () {",
+            "    pm.response.to.have.status(200);",
+            "    pm.expect(pm.response.json()).to.deep.equal(JSON.parse(pm.variables.get('testRezept')));",
+            "});"
+          ] } }]
+        }
+      ]
+    }
+  ]
+}

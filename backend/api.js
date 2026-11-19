@@ -1,35 +1,15 @@
-const rezeptService = require("./rezeptService");
-const schutzzielService = require("./schutzzielService");
+const RezeptDao = require("./rezeptDao");
+const SchutzzielDao = require("./schutzzielDao");
+const erstelleRezeptRouter = require("./rezeptService");
+const erstelleSchutzzielRouter = require("./schutzzielService");
 
-function erstelleApiRouter(express) {
+function erstelleApiRouter(express, datenbank) {
     const router = express.Router();
+    const rezeptDao = new RezeptDao(datenbank);
+    const schutzzielDao = new SchutzzielDao(datenbank);
 
-    router.get("/rezept", function (anfrage, antwort) {
-        const filter = [].concat(anfrage.query.schutzziel ?? []);
-        const kuerzel = filter.flatMap(function (wert) {
-            return wert.split(",").map(function (teil) {
-                return teil.trim();
-            });
-        });
-        antwort.json(rezeptService.alleAbrufen(kuerzel));
-    });
-
-    router.get("/rezept/:id", function (anfrage, antwort) {
-        const rezept = rezeptService.nachIdAbrufen(anfrage.params.id);
-        if (!rezept) {
-            return antwort.status(404).json({ fehler: "Rezept nicht gefunden." });
-        }
-        antwort.json(rezept);
-    });
-
-    router.get("/schutzziel", function (anfrage, antwort) {
-        antwort.json(schutzzielService.alleAbrufen());
-    });
-
-    router.post("/rezept", express.json(), function (anfrage, antwort) {
-        const rezept = rezeptService.speichern(anfrage.body);
-        antwort.location("/api/rezept/" + rezept.id).status(201).json(rezept);
-    });
+    router.use(erstelleRezeptRouter(express, rezeptDao, schutzzielDao));
+    router.use(erstelleSchutzzielRouter(express, schutzzielDao));
 
     router.use(function (fehler, anfrage, antwort, weiter) {
         if (antwort.headersSent) {

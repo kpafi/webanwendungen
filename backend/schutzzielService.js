@@ -1,7 +1,11 @@
-const schutzzielDao = require("./schutzzielDao");
+function erstelleSchutzzielRouter(express, schutzzielDao) {
+    const router = express.Router();
 
-function alleAbrufen() {
-    return schutzzielDao.alleAbrufen();
+    router.get("/schutzziel", function (anfrage, antwort) {
+        antwort.json(schutzzielDao.alleAbrufen());
+    });
+
+    return router;
 }
 
-module.exports = { alleAbrufen };
+module.exports = erstelleSchutzzielRouter;

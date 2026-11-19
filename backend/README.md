@@ -45,3 +45,22 @@ Sende ein JSON-Objekt mit dem Header `Content-Type: application/json`. `name`, `
 `skizzePfad`, `skizzeAlt` und `skizzeText` sind optionale Textfelder und standardmäßig `null`. `skizzePfad` nimmt einen vorhandenen Pfad wie `bilder/skizze-hmac.svg` auf. Der Endpunkt verarbeitet JSON und speichert den Pfad als Text.
 
 Alle Rezeptantworten enthalten die oben genannten Felder sowie `id` und `erstelltAm`. Der Server erzeugt die numerische ID und setzt das Erstellungsdatum im Format `YYYY-MM-DD` in UTC. Ungültige Eingaben wie fehlerhaftes JSON, fehlende Pflichtfelder, ungültige IDs oder unbekannte Kürzel ergeben `400` mit einem JSON-Objekt der Form `{"fehler":"…"}`.
+
+## In Postman testen
+
+1. Starte den Server wie oben beschrieben.
+2. Importiere [Krypto-Kueche.postman_collection.json](Krypto-Kueche.postman_collection.json) über **Import** in der Postman-Desktop-App. Die Sammlung verwendet `http://localhost:3000`.
+3. Wähle den Ordner **Lesen und Eingaben prüfen** und starte ihn über **Run**. Für eine einzelne Anfrage kannst du **Send** wählen. Unter **Test Results** siehst du, welche Prüfungen bestanden wurden.
+
+### Rezept mit einer Datenbankkopie anlegen
+
+Beende den laufenden Server zuerst mit `Strg+C`. Führe die folgenden Befehle im Projektordner in PowerShell aus. Sie kopieren das Backend mit der SQLite-Datei und das Frontend mit den bereits installierten Abhängigkeiten in einen temporären Ordner.
+
+```powershell
+$testordner = Join-Path ([IO.Path]::GetTempPath()) ("krypto-kueche-postman-" + [guid]::NewGuid())
+New-Item -ItemType Directory -Path $testordner | Out-Null
+Copy-Item -LiteralPath backend, frontend -Destination $testordner -Recurse
+node (Join-Path $testordner "frontend/server.js")
+```
+
+Setze in der Sammlung unter **Variables** den Wert von `schreibtests` auf `true`. Starte den Ordner **Schreibtest mit Datenbankkopie** über **Run**. Die erste Anfrage legt ein Testrezept an und prüft `201 Created` sowie den Header `Location`. Die zweite Anfrage ruft das Rezept über diesen Pfad ab und vergleicht die gespeicherten Daten. Setze `schreibtests` anschließend wieder auf `false`.

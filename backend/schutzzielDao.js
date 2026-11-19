@@ -1,13 +1,15 @@
-const datenbank = require("./db/datenbank");
+class SchutzzielDao {
+    constructor(datenbank) {
+        this.schutzzieleAbfragen = datenbank.prepare(`
+            SELECT id, kuerzel, bezeichnung, beschreibung
+            FROM Schutzziel
+            ORDER BY id
+        `);
+    }
 
-const schutzzieleAbfragen = datenbank.prepare(`
-    SELECT id, kuerzel, bezeichnung, beschreibung
-    FROM Schutzziel
-    ORDER BY id
-`);
-
-function alleAbrufen() {
-    return schutzzieleAbfragen.all();
+    alleAbrufen() {
+        return this.schutzzieleAbfragen.all();
+    }
 }
 
-module.exports = { alleAbrufen };
+module.exports = SchutzzielDao;

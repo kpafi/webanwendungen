@@ -1,5 +1,39 @@
-const rezeptDao = require("./rezeptDao");
-const schutzzielService = require("./schutzzielService");
+function erstelleRezeptRouter(express, rezeptDao, schutzzielDao) {
+    const router = express.Router();
+
+    router.get("/rezept", function (anfrage, antwort) {
+        const filter = anfrage.query.schutzziel;
+        if (filter === undefined) {
+            return antwort.json(rezeptDao.alleAbrufen());
+        }
+
+        const kuerzel = [];
+        for (const wert of [].concat(filter)) {
+            for (const teil of wert.split(",")) {
+                kuerzel.push(teil.trim());
+            }
+        }
+
+        const ids = schutzzielIdsErmitteln(kuerzel, schutzzielDao);
+        antwort.json(rezeptDao.nachSchutzzielenAbrufen(ids));
+    });
+
+    router.get("/rezept/:id", function (anfrage, antwort) {
+        const id = rezeptIdLesen(anfrage.params.id);
+        const rezept = rezeptDao.nachIdAbrufen(id);
+        if (!rezept) {
+            return antwort.status(404).json({ fehler: "Rezept nicht gefunden." });
+        }
+        antwort.json(rezept);
+    });
+
+    router.post("/rezept", express.json(), function (anfrage, antwort) {
+        const rezept = rezeptDao.speichern(rezeptAusDaten(anfrage.body, schutzzielDao));
+        antwort.location("/api/rezept/" + rezept.id).status(201).json(rezept);
+    });
+
+    return router;
+}
 
 function ungueltigeEingabe(nachricht) {
     const fehler = new Error(nachricht);
@@ -20,12 +54,12 @@ function istGueltigerLink(link) {
     return url !== null && (url.protocol === "http:" || url.protocol === "https:");
 }
 
-function schutzzielIdsErmitteln(kuerzelListe) {
+function schutzzielIdsErmitteln(kuerzelListe, schutzzielDao) {
     if (!Array.isArray(kuerzelListe)) {
         throw ungueltigeEingabe("Schutzziele müssen als Liste von Kürzeln angegeben werden.");
     }
 
-    const schutzziele = schutzzielService.alleAbrufen();
+    const schutzziele = schutzzielDao.alleAbrufen();
     const ids = [];
     for (const kuerzel of new Set(kuerzelListe)) {
         const ziel = schutzziele.find(function (schutzziel) {
@@ -39,22 +73,15 @@ function schutzzielIdsErmitteln(kuerzelListe) {
     return ids;
 }
 
-function alleAbrufen(schutzziele) {
-    if (schutzziele.length === 0) {
-        return rezeptDao.alleAbrufen();
-    }
-    return rezeptDao.nachSchutzzielenAbrufen(schutzzielIdsErmitteln(schutzziele));
-}
-
-function nachIdAbrufen(wert) {
+function rezeptIdLesen(wert) {
     const id = Number(wert);
     if (!/^\d+$/.test(wert) || !Number.isSafeInteger(id) || id < 1) {
         throw ungueltigeEingabe("Die Rezept-ID muss eine positive ganze Zahl sein.");
     }
-    return rezeptDao.nachIdAbrufen(id);
+    return id;
 }
 
-function speichern(daten) {
+function rezeptAusDaten(daten, schutzzielDao) {
     if (!daten || typeof daten !== "object" || Array.isArray(daten)) {
         throw ungueltigeEingabe("Der Request-Body muss ein JSON-Objekt sein.");
     }
@@ -88,10 +115,10 @@ function speichern(daten) {
         throw ungueltigeEingabe("Jeder Link benötigt einen Titel und eine HTTP- oder HTTPS-Adresse.");
     }
     rezept.links = links;
-    rezept.schutzzielIds = schutzzielIdsErmitteln(schutzziele);
+    rezept.schutzzielIds = schutzzielIdsErmitteln(schutzziele, schutzzielDao);
     rezept.erstelltAm = new Date().toISOString().slice(0, 10);
 
-    return rezeptDao.speichern(rezept);
+    return rezept;
 }
 
-module.exports = { alleAbrufen, nachIdAbrufen, speichern };
+module.exports = erstelleRezeptRouter;
