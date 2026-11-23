@@ -1,124 +1,160 @@
-function erstelleRezeptRouter(express, rezeptDao, schutzzielDao) {
-    const router = express.Router();
+const helper = require('./helper.js');
+const RezeptDao = require('./rezeptDao.js');
 
-    router.get("/rezept", function (anfrage, antwort) {
-        const filter = anfrage.query.schutzziel;
-        if (filter === undefined) {
-            return antwort.json(rezeptDao.alleAbrufen());
+// express und die datenbank bekommen wir von api.js,
+// weil express nur im frontend-ordner installiert ist
+function erstelleRezeptRouter(express, dbConnection) {
+    var serviceRouter = express.Router();
+
+    console.log('- Service Rezept');
+
+    serviceRouter.get('/rezept/gib/:id', function(request, response) {
+        console.log('Service Rezept: Client requested one record, id=' + request.params.id);
+
+        const rezeptDao = new RezeptDao(dbConnection);
+        try {
+            var obj = rezeptDao.loadById(request.params.id);
+            console.log('Service Rezept: Record loaded');
+            response.status(200).json(obj);
+        } catch (ex) {
+            console.error('Service Rezept: Error loading record by id. Exception occured: ' + ex.message);
+            response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
         }
-
-        const kuerzel = [];
-        for (const wert of [].concat(filter)) {
-            for (const teil of wert.split(",")) {
-                kuerzel.push(teil.trim());
-            }
-        }
-
-        const ids = schutzzielIdsErmitteln(kuerzel, schutzzielDao);
-        antwort.json(rezeptDao.nachSchutzzielenAbrufen(ids));
     });
 
-    router.get("/rezept/:id", function (anfrage, antwort) {
-        const id = rezeptIdLesen(anfrage.params.id);
-        const rezept = rezeptDao.nachIdAbrufen(id);
-        if (!rezept) {
-            return antwort.status(404).json({ fehler: "Rezept nicht gefunden." });
+    serviceRouter.get('/rezept/alle', function(request, response) {
+        console.log('Service Rezept: Client requested all records');
+
+        const rezeptDao = new RezeptDao(dbConnection);
+        try {
+            var arr = rezeptDao.loadAll();
+            console.log('Service Rezept: Records loaded, count=' + arr.length);
+            response.status(200).json(arr);
+        } catch (ex) {
+            console.error('Service Rezept: Error loading all records. Exception occured: ' + ex.message);
+            response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
         }
-        antwort.json(rezept);
     });
 
-    router.post("/rezept", express.json(), function (anfrage, antwort) {
-        const rezept = rezeptDao.speichern(rezeptAusDaten(anfrage.body, schutzzielDao));
-        antwort.location("/api/rezept/" + rezept.id).status(201).json(rezept);
+    serviceRouter.get('/rezept/existiert/:id', function(request, response) {
+        console.log('Service Rezept: Client requested check, if record exists, id=' + request.params.id);
+
+        const rezeptDao = new RezeptDao(dbConnection);
+        try {
+            var exists = rezeptDao.exists(request.params.id);
+            console.log('Service Rezept: Check if record exists by id=' + request.params.id + ', exists=' + exists);
+            response.status(200).json({ 'id': request.params.id, 'existiert': exists });
+        } catch (ex) {
+            console.error('Service Rezept: Error checking if record exists. Exception occured: ' + ex.message);
+            response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+        }
     });
 
-    return router;
-}
+    serviceRouter.post('/rezept', function(request, response) {
+        console.log('Service Rezept: Client requested creation of new record');
 
-function ungueltigeEingabe(nachricht) {
-    const fehler = new Error(nachricht);
-    fehler.status = 400;
-    return fehler;
-}
+        var errorMsgs = checkRezept(request.body);
 
-function istText(wert) {
-    return typeof wert === "string" && wert.trim() !== "";
-}
-
-function istGueltigerLink(link) {
-    if (!link || !istText(link.titel) || !istText(link.url)) {
-        return false;
-    }
-
-    const url = URL.parse(link.url);
-    return url !== null && (url.protocol === "http:" || url.protocol === "https:");
-}
-
-function schutzzielIdsErmitteln(kuerzelListe, schutzzielDao) {
-    if (!Array.isArray(kuerzelListe)) {
-        throw ungueltigeEingabe("Schutzziele müssen als Liste von Kürzeln angegeben werden.");
-    }
-
-    const schutzziele = schutzzielDao.alleAbrufen();
-    const ids = [];
-    for (const kuerzel of new Set(kuerzelListe)) {
-        const ziel = schutzziele.find(function (schutzziel) {
-            return schutzziel.kuerzel === kuerzel;
-        });
-        if (!ziel) {
-            throw ungueltigeEingabe("Ein Schutzziel-Kürzel ist ungültig. Gültige Kürzel liefert GET /api/schutzziel.");
+        if (errorMsgs.length > 0) {
+            console.log('Service Rezept: Creation not possible, data missing');
+            response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
+            return;
         }
-        ids.push(ziel.id);
-    }
-    return ids;
+
+        const rezeptDao = new RezeptDao(dbConnection);
+        try {
+            var b = request.body;
+            var obj = rezeptDao.create(b.name, b.kurztext, b.slogan, b.definition, b.skizzePfad, b.skizzeAlt, b.skizzeText, b.schutzziele, b.zutaten, b.schritte, b.tipps, b.links);
+            console.log('Service Rezept: Record inserted');
+            response.status(200).json(obj);
+        } catch (ex) {
+            console.error('Service Rezept: Error creating new record. Exception occured: ' + ex.message);
+            response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+        }
+    });
+
+    serviceRouter.put('/rezept', function(request, response) {
+        console.log('Service Rezept: Client requested update of existing record');
+
+        var errorMsgs = checkRezept(request.body);
+        if (helper.isUndefined(request.body.id))
+            errorMsgs.push('id fehlt');
+
+        if (errorMsgs.length > 0) {
+            console.log('Service Rezept: Update not possible, data missing');
+            response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
+            return;
+        }
+
+        const rezeptDao = new RezeptDao(dbConnection);
+        try {
+            var b = request.body;
+            var obj = rezeptDao.update(b.id, b.name, b.kurztext, b.slogan, b.definition, b.skizzePfad, b.skizzeAlt, b.skizzeText, b.schutzziele, b.zutaten, b.schritte, b.tipps, b.links);
+            console.log('Service Rezept: Record updated, id=' + request.body.id);
+            response.status(200).json(obj);
+        } catch (ex) {
+            console.error('Service Rezept: Error updating record by id. Exception occured: ' + ex.message);
+            response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+        }
+    });
+
+    serviceRouter.delete('/rezept/:id', function(request, response) {
+        console.log('Service Rezept: Client requested deletion of record, id=' + request.params.id);
+
+        const rezeptDao = new RezeptDao(dbConnection);
+        try {
+            var obj = rezeptDao.loadById(request.params.id);
+            rezeptDao.delete(request.params.id);
+            console.log('Service Rezept: Deletion of record successfull, id=' + request.params.id);
+            response.status(200).json({ 'gelöscht': true, 'eintrag': obj });
+        } catch (ex) {
+            console.error('Service Rezept: Error deleting record. Exception occured: ' + ex.message);
+            response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+        }
+    });
+
+    return serviceRouter;
 }
 
-function rezeptIdLesen(wert) {
-    const id = Number(wert);
-    if (!/^\d+$/.test(wert) || !Number.isSafeInteger(id) || id < 1) {
-        throw ungueltigeEingabe("Die Rezept-ID muss eine positive ganze Zahl sein.");
-    }
-    return id;
-}
 
-function rezeptAusDaten(daten, schutzzielDao) {
-    if (!daten || typeof daten !== "object" || Array.isArray(daten)) {
-        throw ungueltigeEingabe("Der Request-Body muss ein JSON-Objekt sein.");
+// prueft die daten fuer post und put, damit das nicht doppelt da steht
+// gibt eine liste mit fehlermeldungen zurueck, fehlende optionale felder werden auf null oder [] gesetzt
+function checkRezept(body) {
+    var errorMsgs = [];
+
+    if (helper.isUndefined(body.name))
+        errorMsgs.push('name fehlt');
+    if (helper.isUndefined(body.kurztext))
+        errorMsgs.push('kurztext fehlt');
+    if (helper.isUndefined(body.slogan))
+        errorMsgs.push('slogan fehlt');
+    if (helper.isUndefined(body.definition))
+        errorMsgs.push('definition fehlt');
+
+    if (helper.isUndefined(body.skizzePfad))
+        body.skizzePfad = null;
+    if (helper.isUndefined(body.skizzeAlt))
+        body.skizzeAlt = null;
+    if (helper.isUndefined(body.skizzeText))
+        body.skizzeText = null;
+
+    if (!helper.isArray(body.schutzziele))
+        body.schutzziele = [];
+    if (!helper.isArray(body.zutaten))
+        body.zutaten = [];
+    if (!helper.isArray(body.schritte))
+        body.schritte = [];
+    if (!helper.isArray(body.tipps))
+        body.tipps = [];
+    if (!helper.isArray(body.links))
+        body.links = [];
+
+    for (var element of body.schutzziele) {
+        if (helper.isUndefined(element.id))
+            errorMsgs.push('schutzziel gesetzt, aber id fehlt');
     }
 
-    const rezept = {};
-    for (const feld of ["name", "kurztext", "slogan", "definition"]) {
-        if (!istText(daten[feld])) {
-            throw ungueltigeEingabe(feld + " ist ein Pflichtfeld und muss Text enthalten.");
-        }
-        rezept[feld] = daten[feld].trim();
-    }
-
-    for (const feld of ["skizzePfad", "skizzeAlt", "skizzeText"]) {
-        const wert = daten[feld] ?? null;
-        if (wert !== null && typeof wert !== "string") {
-            throw ungueltigeEingabe(feld + " muss ein Text oder null sein.");
-        }
-        rezept[feld] = wert;
-    }
-
-    for (const feld of ["zutaten", "schritte", "tipps"]) {
-        const liste = daten[feld] === undefined ? [] : daten[feld];
-        if (!Array.isArray(liste) || !liste.every(istText)) {
-            throw ungueltigeEingabe(feld + " muss eine Liste von nicht leeren Texten sein.");
-        }
-        rezept[feld] = liste;
-    }
-
-    const { links = [], schutzziele = [] } = daten;
-    if (!Array.isArray(links) || !links.every(istGueltigerLink)) {
-        throw ungueltigeEingabe("Jeder Link benötigt einen Titel und eine HTTP- oder HTTPS-Adresse.");
-    }
-    rezept.links = links;
-    rezept.schutzzielIds = schutzzielIdsErmitteln(schutzziele, schutzzielDao);
-    rezept.erstelltAm = new Date().toISOString().slice(0, 10);
-
-    return rezept;
+    return errorMsgs;
 }
 
 module.exports = erstelleRezeptRouter;

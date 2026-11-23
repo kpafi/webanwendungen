@@ -1,113 +1,154 @@
-const punktarten = { zutat: "zutaten", schritt: "schritte", tipp: "tipps" };
+const helper = require('./helper.js');
+const RezeptschutzzielDao = require('./rezeptschutzzielDao.js');
+const RezeptpunktDao = require('./rezeptpunktDao.js');
+const LinkDao = require('./linkDao.js');
 
 class RezeptDao {
-    constructor(datenbank) {
-        this.datenbank = datenbank;
 
-        this.alleRezepteAbfragen = datenbank.prepare("SELECT * FROM Rezept ORDER BY id");
-        this.rezeptAbfragen = datenbank.prepare("SELECT * FROM Rezept WHERE id = ?");
-        this.schutzzieleAbfragen = datenbank.prepare(`
-            SELECT Schutzziel.kuerzel
-            FROM RezeptSchutzziel
-            JOIN Schutzziel ON Schutzziel.id = RezeptSchutzziel.schutzzielId
-            WHERE RezeptSchutzziel.rezeptId = ?
-            ORDER BY Schutzziel.id
-        `);
-        this.punkteAbfragen = datenbank.prepare(`
-            SELECT art, text FROM Rezeptpunkt WHERE rezeptId = ? ORDER BY position, id
-        `);
-        this.linksAbfragen = datenbank.prepare(`
-            SELECT titel, url FROM Link WHERE rezeptId = ? ORDER BY position, id
-        `);
-
-        this.rezeptEinfuegen = datenbank.prepare(`
-            INSERT INTO Rezept (name, kurztext, slogan, definition, skizzePfad, skizzeAlt, skizzeText, erstelltAm)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        `);
-        this.schutzzielZuordnen = datenbank.prepare(`
-            INSERT INTO RezeptSchutzziel (rezeptId, schutzzielId) VALUES (?, ?)
-        `);
-        this.punktEinfuegen = datenbank.prepare(`
-            INSERT INTO Rezeptpunkt (rezeptId, art, position, text) VALUES (?, ?, ?, ?)
-        `);
-        this.linkEinfuegen = datenbank.prepare(`
-            INSERT INTO Link (rezeptId, position, titel, url) VALUES (?, ?, ?, ?)
-        `);
+    constructor(dbConnection) {
+        this._conn = dbConnection;
     }
 
-    alleAbrufen() {
-        return this.alleRezepteAbfragen.all().map((rezept) => this.mitDetails(rezept));
+    getConnection() {
+        return this._conn;
     }
 
-    nachIdAbrufen(id) {
-        const rezept = this.rezeptAbfragen.get(id);
-        return rezept ? this.mitDetails(rezept) : null;
+    loadById(id) {
+        const rezeptschutzzielDao = new RezeptschutzzielDao(this._conn);
+        const rezeptpunktDao = new RezeptpunktDao(this._conn);
+        const linkDao = new LinkDao(this._conn);
+
+        var sql = 'SELECT * FROM Rezept WHERE id=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(id);
+
+        if (helper.isUndefined(result))
+            throw new Error('No Record found by id=' + id);
+
+        result.schutzziele = rezeptschutzzielDao.loadAllByParent(result.id);
+        result.zutaten = rezeptpunktDao.loadAllByParent(result.id, 'zutat');
+        result.schritte = rezeptpunktDao.loadAllByParent(result.id, 'schritt');
+        result.tipps = rezeptpunktDao.loadAllByParent(result.id, 'tipp');
+        result.links = linkDao.loadAllByParent(result.id);
+
+        return result;
     }
 
-    nachSchutzzielenAbrufen(ids) {
-        const platzhalter = ids.map(() => "?").join(", ");
-        const abfrage = this.datenbank.prepare(`
-            SELECT * FROM Rezept
-            WHERE id IN (
-                SELECT rezeptId FROM RezeptSchutzziel
-                WHERE schutzzielId IN (${platzhalter})
-                GROUP BY rezeptId
-                HAVING COUNT(*) = ?
-            )
-            ORDER BY id
-        `);
-        return abfrage.all(...ids, ids.length).map((rezept) => this.mitDetails(rezept));
+    loadAll() {
+        var sql = 'SELECT id FROM Rezept';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all();
+
+        if (helper.isArrayEmpty(result))
+            return [];
+
+        // jedes rezept mit loadById laden, dann sind auch zutaten, links usw. dabei
+        var rezepte = [];
+        for (var i = 0; i < result.length; i++) {
+            rezepte.push(this.loadById(result[i].id));
+        }
+
+        return rezepte;
     }
 
-    speichern(rezept) {
-        // Rezept und zugehörige Einträge werden gemeinsam gespeichert.
-        this.datenbank.exec("BEGIN IMMEDIATE");
+    exists(id) {
+        var sql = 'SELECT COUNT(id) AS cnt FROM Rezept WHERE id=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.get(id);
+
+        if (result.cnt == 1)
+            return true;
+
+        return false;
+    }
+
+    create(name = '', kurztext = '', slogan = '', definition = '', skizzePfad = null, skizzeAlt = null, skizzeText = null, schutzziele = [], zutaten = [], schritte = [], tipps = [], links = []) {
+        var sql = 'INSERT INTO Rezept (name,kurztext,slogan,definition,skizzePfad,skizzeAlt,skizzeText,erstelltAm) VALUES (?,?,?,?,?,?,?,?)';
+        var statement = this._conn.prepare(sql);
+        var result = statement.run(name, kurztext, slogan, definition, skizzePfad, skizzeAlt, skizzeText, helper.getToday());
+
+        if (result.changes != 1)
+            throw new Error('Could not insert new Record. Data: ' + name);
+
+        this.createDetails(result.lastInsertRowid, schutzziele, zutaten, schritte, tipps, links);
+
+        return this.loadById(result.lastInsertRowid);
+    }
+
+    update(id, name = '', kurztext = '', slogan = '', definition = '', skizzePfad = null, skizzeAlt = null, skizzeText = null, schutzziele = [], zutaten = [], schritte = [], tipps = [], links = []) {
+        // erst alle alten zuordnungen loeschen, danach werden sie neu angelegt
+        this.deleteDetails(id);
+
+        var sql = 'UPDATE Rezept SET name=?,kurztext=?,slogan=?,definition=?,skizzePfad=?,skizzeAlt=?,skizzeText=? WHERE id=?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.run(name, kurztext, slogan, definition, skizzePfad, skizzeAlt, skizzeText, id);
+
+        if (result.changes != 1)
+            throw new Error('Could not update existing Record. Data: ' + id + ', ' + name);
+
+        this.createDetails(id, schutzziele, zutaten, schritte, tipps, links);
+
+        return this.loadById(id);
+    }
+
+    delete(id) {
         try {
-            const { lastInsertRowid: id } = this.rezeptEinfuegen.run(
-                rezept.name, rezept.kurztext, rezept.slogan, rezept.definition,
-                rezept.skizzePfad, rezept.skizzeAlt, rezept.skizzeText, rezept.erstelltAm
-            );
+            this.deleteDetails(id);
 
-            for (const schutzzielId of rezept.schutzzielIds) {
-                this.schutzzielZuordnen.run(id, schutzzielId);
-            }
+            var sql = 'DELETE FROM Rezept WHERE id=?';
+            var statement = this._conn.prepare(sql);
+            var result = statement.run(id);
 
-            for (const [art, feld] of Object.entries(punktarten)) {
-                for (const [index, text] of rezept[feld].entries()) {
-                    this.punktEinfuegen.run(id, art, index + 1, text);
-                }
-            }
+            if (result.changes != 1)
+                throw new Error('Could not delete Record by id=' + id);
 
-            for (const [index, link] of rezept.links.entries()) {
-                this.linkEinfuegen.run(id, index + 1, link.titel, link.url);
-            }
-
-            const ergebnis = this.nachIdAbrufen(id);
-            this.datenbank.exec("COMMIT");
-            return ergebnis;
-        } catch (fehler) {
-            this.datenbank.exec("ROLLBACK");
-            throw fehler;
+            return true;
+        } catch (ex) {
+            throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
         }
     }
 
-    mitDetails(rezept) {
-        const ergebnis = {
-            ...rezept,
-            schutzziele: this.schutzzieleAbfragen.all(rezept.id).map(function (ziel) {
-                return ziel.kuerzel;
-            }),
-            zutaten: [],
-            schritte: [],
-            tipps: [],
-            links: this.linksAbfragen.all(rezept.id)
-        };
+    // legt schutzziele, zutaten, schritte, tipps und links zu einem rezept an
+    // die position ist einfach die stelle in der liste (1, 2, 3, ...)
+    createDetails(id, schutzziele, zutaten, schritte, tipps, links) {
+        const rezeptschutzzielDao = new RezeptschutzzielDao(this._conn);
+        const rezeptpunktDao = new RezeptpunktDao(this._conn);
+        const linkDao = new LinkDao(this._conn);
 
-        for (const punkt of this.punkteAbfragen.all(rezept.id)) {
-            ergebnis[punktarten[punkt.art]].push(punkt.text);
+        for (var element of schutzziele) {
+            rezeptschutzzielDao.create(id, element.id);
         }
 
-        return ergebnis;
+        for (var i = 0; i < zutaten.length; i++) {
+            rezeptpunktDao.create(id, 'zutat', i + 1, zutaten[i].text);
+        }
+
+        for (var i = 0; i < schritte.length; i++) {
+            rezeptpunktDao.create(id, 'schritt', i + 1, schritte[i].text);
+        }
+
+        for (var i = 0; i < tipps.length; i++) {
+            rezeptpunktDao.create(id, 'tipp', i + 1, tipps[i].text);
+        }
+
+        for (var i = 0; i < links.length; i++) {
+            linkDao.create(id, i + 1, links[i].titel, links[i].url);
+        }
+    }
+
+    // loescht alles was zu einem rezept gehoert, das rezept selbst bleibt
+    deleteDetails(id) {
+        const rezeptschutzzielDao = new RezeptschutzzielDao(this._conn);
+        const rezeptpunktDao = new RezeptpunktDao(this._conn);
+        const linkDao = new LinkDao(this._conn);
+
+        rezeptschutzzielDao.deleteByParent(id);
+        rezeptpunktDao.deleteByParent(id);
+        linkDao.deleteByParent(id);
+    }
+
+    toString() {
+        console.log('RezeptDao [_conn=' + this._conn + ']');
     }
 }
 

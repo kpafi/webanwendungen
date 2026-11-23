@@ -104,7 +104,7 @@ document.getElementById("verweis-knopf").addEventListener("click", function () {
 
 // rezeptauswahl zum verlinken mit allen rezepten aus der datenbank fuellen
 $.ajax({
-    url: "/api/rezept",
+    url: "/api/rezept/alle",
     method: "GET",
     dataType: "json"
 }).done(function (rezepte) {

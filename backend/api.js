@@ -1,29 +1,20 @@
-const RezeptDao = require("./rezeptDao");
-const SchutzzielDao = require("./schutzzielDao");
-const erstelleRezeptRouter = require("./rezeptService");
-const erstelleSchutzzielRouter = require("./schutzzielService");
+// bindet alle services unter /api ein, so wie im server.js vom prof
+const erstelleSchutzzielRouter = require('./schutzzielService.js');
+const erstelleRezeptRouter = require('./rezeptService.js');
 
 function erstelleApiRouter(express, datenbank) {
-    const router = express.Router();
-    const rezeptDao = new RezeptDao(datenbank);
-    const schutzzielDao = new SchutzzielDao(datenbank);
+    var router = express.Router();
 
-    router.use(erstelleRezeptRouter(express, rezeptDao, schutzzielDao));
-    router.use(erstelleSchutzzielRouter(express, schutzzielDao));
+    // json im request body lesen (beim prof macht das bodyParser.json())
+    router.use(express.json());
 
-    router.use(function (fehler, anfrage, antwort, weiter) {
-        if (antwort.headersSent) {
-            return weiter(fehler);
-        }
+    router.use(erstelleSchutzzielRouter(express, datenbank));
+    router.use(erstelleRezeptRouter(express, datenbank));
 
-        const status = fehler.status || 500;
-        if (status >= 500) {
-            console.error(fehler);
-            return antwort.status(500).json({ fehler: "Interner Serverfehler." });
-        }
-
-        const nachricht = fehler.type === "entity.parse.failed" ? "Ungültiges JSON." : fehler.message;
-        antwort.status(status).json({ fehler: nachricht });
+    // send default error message if no matching endpoint found
+    router.use(function (request, response) {
+        console.log('Error occured, 404, resource not found');
+        response.status(404).json({ 'fehler': true, 'nachricht': 'Resource nicht gefunden' });
     });
 
     return router;

@@ -16,7 +16,7 @@ if (parameter.get("schutzziel")) {
 
 // schutzziele aus der datenbank holen und fuer jedes ein kaestchen in den kleinen filter bauen
 $.ajax({
-    url: API + "/schutzziel",
+    url: API + "/schutzziel/alle",
     method: "GET",
     dataType: "json"
 }).done(function (schutzziele) {
@@ -46,7 +46,7 @@ $.ajax({
 
 // alle rezepte aus der datenbank holen und anzeigen
 $.ajax({
-    url: API + "/rezept",
+    url: API + "/rezept/alle",
     method: "GET",
     dataType: "json"
 }).done(function (rezepte) {
@@ -122,10 +122,15 @@ function kachelnZeigen() {
 
 // ein rezept passt nur, wenn es ALLE gewaehlten schutzziele hat
 // ist nichts gewaehlt, passt jedes rezept
-// rezept.schutzziele ist eine liste von kuerzeln, z.b. ["a", "i"]
+// rezept.schutzziele ist eine liste von schutzziel-objekten, wir brauchen nur die kuerzel
 function passtZumFilter(rezept) {
+    const kuerzelVomRezept = [];
+    for (const ziel of rezept.schutzziele) {
+        kuerzelVomRezept.push(ziel.kuerzel);
+    }
+
     for (const kuerzel of gewaehlt) {
-        if (!rezept.schutzziele.includes(kuerzel)) {
+        if (!kuerzelVomRezept.includes(kuerzel)) {
             return false;
         }
     }

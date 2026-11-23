@@ -9,7 +9,7 @@ if (id === null || id === "") {
     fehlerZeigen("Kein Rezept ausgewählt");
 } else {
     $.ajax({
-        url: API + "/rezept/" + id,
+        url: API + "/rezept/gib/" + id,
         method: "GET",
         dataType: "json"
     }).done(function (rezept) {
@@ -62,37 +62,28 @@ function rezeptZeigen(rezept) {
 
 
 // schutzziele als links, die fuehren zur rezeptliste mit passendem filter
-// im rezept stehen nur die kuerzel (z.b. ["a", "i"]),
-// den ausgeschriebenen namen holen wir uns aus der schutzziel-liste
-function schutzzieleZeigen(kuerzelListe) {
-    $.ajax({
-        url: API + "/schutzziel",
-        method: "GET",
-        dataType: "json"
-    }).done(function (schutzziele) {
-        const ziele = document.getElementById("rezept-schutzziele");
-        ziele.textContent = "Schutzziele: ";
-        for (const ziel of schutzziele) {
-            if (!kuerzelListe.includes(ziel.kuerzel)) {
-                continue;
-            }
-            const link = document.createElement("a");
-            link.href = "rezepte.html?schutzziel=" + ziel.kuerzel;
-            link.className = "ziel";
-            link.textContent = ziel.bezeichnung;
-            ziele.appendChild(link);
-            ziele.append(" ");      // leerzeichen zwischen den links
-        }
-    });
+// im rezept stehen die ganzen schutzziele drin (id, kuerzel, bezeichnung, beschreibung)
+function schutzzieleZeigen(schutzziele) {
+    const ziele = document.getElementById("rezept-schutzziele");
+    ziele.textContent = "Schutzziele: ";
+    for (const ziel of schutzziele) {
+        const link = document.createElement("a");
+        link.href = "rezepte.html?schutzziel=" + ziel.kuerzel;
+        link.className = "ziel";
+        link.textContent = ziel.bezeichnung;
+        ziele.appendChild(link);
+        ziele.append(" ");      // leerzeichen zwischen den links
+    }
 }
 
 
 // macht aus jedem punkt (zutat, schritt oder tipp) einen eigenen listenpunkt
+// jeder punkt ist ein objekt, der text steht in punkt.text
 function listeFuellen(listenId, punkte) {
     const liste = document.getElementById(listenId);
     for (const punkt of punkte) {
         const li = document.createElement("li");
-        li.innerHTML = punkt;       // auch hier koennen links drin sein
+        li.innerHTML = punkt.text;      // auch hier koennen links drin sein
         liste.appendChild(li);
     }
 }
