@@ -1,4 +1,4 @@
-const helper = require('./helper.js');
+const helper = require('../helper.js');
 
 // ein rezeptpunkt ist eine zutat, ein schritt oder ein tipp (spalte "art")
 class RezeptpunktDao {
@@ -31,10 +31,11 @@ class RezeptpunktDao {
     create(rezeptId = 1, art = 'zutat', position = 1, text = '') {
         var sql = 'INSERT INTO Rezeptpunkt (rezeptId,art,position,text) VALUES (?,?,?,?)';
         var statement = this._conn.prepare(sql);
-        var result = statement.run(rezeptId, art, position, text);
+        var params = [rezeptId, art, position, text];
+        var result = statement.run(params);
 
         if (result.changes != 1)
-            throw new Error('Could not insert new Record. Data: ' + rezeptId + ', ' + art + ', ' + text);
+            throw new Error('Could not insert new Record. Data: ' + params);
 
         return true;
     }

@@ -1,4 +1,4 @@
-const helper = require('./helper.js');
+const helper = require('../helper.js');
 
 class LinkDao {
 
@@ -30,10 +30,11 @@ class LinkDao {
     create(rezeptId = 1, position = 1, titel = '', url = '') {
         var sql = 'INSERT INTO Link (rezeptId,position,titel,url) VALUES (?,?,?,?)';
         var statement = this._conn.prepare(sql);
-        var result = statement.run(rezeptId, position, titel, url);
+        var params = [rezeptId, position, titel, url];
+        var result = statement.run(params);
 
         if (result.changes != 1)
-            throw new Error('Could not insert new Record. Data: ' + rezeptId + ', ' + titel + ', ' + url);
+            throw new Error('Could not insert new Record. Data: ' + params);
 
         return true;
     }

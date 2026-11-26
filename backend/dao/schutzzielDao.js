@@ -1,4 +1,4 @@
-const helper = require('./helper.js');
+const helper = require('../helper.js');
 
 class SchutzzielDao {
 
@@ -46,10 +46,11 @@ class SchutzzielDao {
     create(kuerzel = '', bezeichnung = '', beschreibung = '') {
         var sql = 'INSERT INTO Schutzziel (kuerzel,bezeichnung,beschreibung) VALUES (?,?,?)';
         var statement = this._conn.prepare(sql);
-        var result = statement.run(kuerzel, bezeichnung, beschreibung);
+        var params = [kuerzel, bezeichnung, beschreibung];
+        var result = statement.run(params);
 
         if (result.changes != 1)
-            throw new Error('Could not insert new Record. Data: ' + kuerzel + ', ' + bezeichnung);
+            throw new Error('Could not insert new Record. Data: ' + params);
 
         return this.loadById(result.lastInsertRowid);
     }
@@ -57,10 +58,11 @@ class SchutzzielDao {
     update(id, kuerzel = '', bezeichnung = '', beschreibung = '') {
         var sql = 'UPDATE Schutzziel SET kuerzel=?,bezeichnung=?,beschreibung=? WHERE id=?';
         var statement = this._conn.prepare(sql);
-        var result = statement.run(kuerzel, bezeichnung, beschreibung, id);
+        var params = [kuerzel, bezeichnung, beschreibung, id];
+        var result = statement.run(params);
 
         if (result.changes != 1)
-            throw new Error('Could not update existing Record. Data: ' + id + ', ' + kuerzel + ', ' + bezeichnung);
+            throw new Error('Could not update existing Record. Data: ' + params);
 
         return this.loadById(id);
     }

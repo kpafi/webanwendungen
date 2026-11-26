@@ -1,4 +1,4 @@
-const helper = require('./helper.js');
+const helper = require('../helper.js');
 const RezeptschutzzielDao = require('./rezeptschutzzielDao.js');
 const RezeptpunktDao = require('./rezeptpunktDao.js');
 const LinkDao = require('./linkDao.js');
@@ -65,10 +65,11 @@ class RezeptDao {
     create(name = '', kurztext = '', slogan = '', definition = '', skizzePfad = null, skizzeAlt = null, skizzeText = null, schutzziele = [], zutaten = [], schritte = [], tipps = [], links = []) {
         var sql = 'INSERT INTO Rezept (name,kurztext,slogan,definition,skizzePfad,skizzeAlt,skizzeText,erstelltAm) VALUES (?,?,?,?,?,?,?,?)';
         var statement = this._conn.prepare(sql);
-        var result = statement.run(name, kurztext, slogan, definition, skizzePfad, skizzeAlt, skizzeText, helper.getToday());
+        var params = [name, kurztext, slogan, definition, skizzePfad, skizzeAlt, skizzeText, helper.getToday()];
+        var result = statement.run(params);
 
         if (result.changes != 1)
-            throw new Error('Could not insert new Record. Data: ' + name);
+            throw new Error('Could not insert new Record. Data: ' + params);
 
         this.createDetails(result.lastInsertRowid, schutzziele, zutaten, schritte, tipps, links);
 
@@ -81,10 +82,11 @@ class RezeptDao {
 
         var sql = 'UPDATE Rezept SET name=?,kurztext=?,slogan=?,definition=?,skizzePfad=?,skizzeAlt=?,skizzeText=? WHERE id=?';
         var statement = this._conn.prepare(sql);
-        var result = statement.run(name, kurztext, slogan, definition, skizzePfad, skizzeAlt, skizzeText, id);
+        var params = [name, kurztext, slogan, definition, skizzePfad, skizzeAlt, skizzeText, id];
+        var result = statement.run(params);
 
         if (result.changes != 1)
-            throw new Error('Could not update existing Record. Data: ' + id + ', ' + name);
+            throw new Error('Could not update existing Record. Data: ' + params);
 
         this.createDetails(id, schutzziele, zutaten, schritte, tipps, links);
 

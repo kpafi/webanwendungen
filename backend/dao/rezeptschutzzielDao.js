@@ -1,4 +1,4 @@
-const helper = require('./helper.js');
+const helper = require('../helper.js');
 const SchutzzielDao = require('./schutzzielDao.js');
 
 // verbindet rezepte und schutzziele (ein rezept kann mehrere schutzziele haben)
@@ -34,10 +34,11 @@ class RezeptschutzzielDao {
     create(rezeptId = 1, schutzzielId = 1) {
         var sql = 'INSERT INTO RezeptSchutzziel (rezeptId,schutzzielId) VALUES (?,?)';
         var statement = this._conn.prepare(sql);
-        var result = statement.run(rezeptId, schutzzielId);
+        var params = [rezeptId, schutzzielId];
+        var result = statement.run(params);
 
         if (result.changes != 1)
-            throw new Error('Could not insert new Record. Data: ' + rezeptId + ', ' + schutzzielId);
+            throw new Error('Could not insert new Record. Data: ' + params);
 
         return true;
     }
