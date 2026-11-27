@@ -1,5 +1,5 @@
-// die rest-api laeuft im selben server wie das frontend, deshalb reicht "/api"
-const API = "/api";
+// die rest-api laeuft auf einem eigenen server (backend, port 8000)
+const API = "http://localhost:8000/api";
 
 // hier merken wir uns alle rezepte aus der datenbank,
 // dann muss beim filtern nicht jedes mal neu geladen werden

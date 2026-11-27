@@ -1,5 +1,5 @@
-// die rest-api laeuft im selben server wie das frontend, deshalb reicht "/api"
-const API = "/api";
+// die rest-api laeuft auf einem eigenen server (backend, port 8000)
+const API = "http://localhost:8000/api";
 
 // die id vom rezept steht hinten in der adresse, z.b. rezept.html?id=4
 const parameter = new URLSearchParams(window.location.search);

@@ -27,9 +27,9 @@ try {
     app.locals.dbConnection = dbConnection;
 
     console.log('Binding middleware...');
-    // unsere html seiten liegen im ordner frontend, so laufen seiten und api auf dem gleichen server
-    app.use(express.static(__dirname + '/../frontend'));
-    app.use(cors());
+    // das frontend laeuft auf einem eigenen server (port 3000),
+    // deshalb muessen wir anfragen von dort erlauben
+    app.use(cors({ origin: 'http://localhost:3000' }));
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     app.use(morgan('dev'));
@@ -55,7 +55,6 @@ try {
 
     app.listen(HTTP_PORT, () => {
         console.log('Listening at localhost, port ' + HTTP_PORT);
-        console.log('\nStartseite: http://localhost:' + HTTP_PORT + '/index.html');
         console.log('Usage: http://localhost:' + HTTP_PORT + TOPLEVELPATH + '/SERVICENAME/SERVICEMETHOD/....');
         console.log('\n\n-----------------------------------------');
         console.log('exit / stop Server by pressing 2 x CTRL-C');

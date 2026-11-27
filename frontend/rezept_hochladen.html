@@ -48,25 +48,28 @@
         <p>Einfach die Kästen ausfüllen.</p>
     </section>
 
-        <form class="rezept-seite">     <!-- der code ist aus den einzelnen rezeptseiten geklaut ich hab jetzt keine lust die gnazen nahmen abzuändern, deshalb heisst das hier alles so seltsam -->
+        <form class="rezept-seite" id="rezept-formular">     <!-- der code ist aus den einzelnen rezeptseiten geklaut ich hab jetzt keine lust die gnazen nahmen abzuändern, deshalb heisst das hier alles so seltsam -->
 
             <div class="rezept-box">
                 <h2>Name</h2>
                 <label>Name des Rezepts
-                    <input type="text" required>
+                    <input type="text" id="rezept-name" required>
                 </label>
                 <label>Ein Satz, der Lust auf das Rezept macht
-                    <input type="text" required>
+                    <input type="text" id="rezept-slogan" required>
+                </label>
+                <label>Kurze Beschreibung für die Rezeptübersicht
+                    <input type="text" id="rezept-kurztext" required>
                 </label>
                 <p>Schutzziele:</p>
-                <label class="ziel-wahl"><input type="checkbox" name="ziel" value="a"> Authentizität</label>
-                <label class="ziel-wahl"><input type="checkbox" name="ziel" value="v"> Vertraulichkeit</label>
-                <label class="ziel-wahl"><input type="checkbox" name="ziel" value="i"> Integrität</label>
+                <label class="ziel-wahl"><input type="checkbox" name="ziel" value="1"> Authentizität</label>
+                <label class="ziel-wahl"><input type="checkbox" name="ziel" value="2"> Vertraulichkeit</label>
+                <label class="ziel-wahl"><input type="checkbox" name="ziel" value="3"> Integrität</label>
             </div>
 
             <div class="rezept-box">
                 <h2>Definition</h2>
-                <textarea rows="4" required placeholder="Was ist das Verfahren und wofür braucht man es?"></textarea>
+                <textarea id="rezept-definition" rows="4" required placeholder="Was ist das Verfahren und wofür braucht man es?"></textarea>
                 <p class="text-vorschau"></p>
             </div>
 
@@ -74,13 +77,13 @@
 
                 <div class="rezept-box zutaten">
                     <h2>Zutaten</h2>
-                    <textarea rows="6" required placeholder="Pro Zeile eine Zutat"></textarea>
+                    <textarea id="rezept-zutaten" rows="6" required placeholder="Pro Zeile eine Zutat"></textarea>
                     <ul class="text-vorschau"></ul>
                 </div>
 
                 <div class="rezept-box zubereitung">
                     <h2>Zubereitung</h2>
-                    <textarea rows="6" required placeholder="Pro Zeile ein Schritt"></textarea>
+                    <textarea id="rezept-schritte" rows="6" required placeholder="Pro Zeile ein Schritt"></textarea>
                     <ol class="text-vorschau"></ol>
                 </div>
 
@@ -96,13 +99,13 @@
 
             <div class="rezept-box">
                 <h2>Weiterführende Links</h2>
-                <textarea rows="3" placeholder="Pro Zeile ein Link, z. B. https://de.wikipedia.org/wiki/HMAC (freiwillig)"></textarea>
+                <textarea id="rezept-links" rows="3" placeholder="Pro Zeile ein Link, z. B. https://de.wikipedia.org/wiki/HMAC (freiwillig)"></textarea>
                 <ul class="text-vorschau"></ul>
             </div>
 
             <div class="rezept-box">
                 <h2>Tipps</h2>
-                <textarea rows="4" required placeholder="Pro Zeile ein Tipp"></textarea>
+                <textarea id="rezept-tipps" rows="4" required placeholder="Pro Zeile ein Tipp"></textarea>
                 <ul class="text-vorschau"></ul>
             </div>
 
@@ -115,8 +118,9 @@
                 <p id="verweis-hinweis">Klick im Text auf das Wort, das zum Link werden soll, und dann auf den Knopf.</p>
             </div>
 
-            <!-- der button macht noch nichts, das kommt spaeter mit dem server -->
-            <p class="hinzufuegen"><button type="button">Rezept hinzufügen</button></p>
+            <!-- der button schickt das formular ab, das abschicken an den server steht in js/rezept-schreiben.js -->
+            <p class="hinzufuegen"><button type="submit">Rezept hinzufügen</button></p>
+            <p id="hinzufuegen-hinweis"></p>
 
         </form>
     </main>

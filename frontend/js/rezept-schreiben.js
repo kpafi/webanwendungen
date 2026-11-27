@@ -21,11 +21,11 @@ for (const feld of document.querySelectorAll(".rezept-seite textarea")) {
     });
 }
 
-// vorschau unter dem textfeld, da sieht man die links so wie spaeter im rezept
-
-function vorschauZeigen(feld) {
+// macht aus dem eingegebenen text html, so wie es spaeter im rezept angezeigt wird
+// das wird fuer die vorschau und beim abschicken benutzt, damit beides gleich aussieht
+function textUmwandeln(wert) {
     // erst alle html zeichen unschaedlich machen, damit niemand irgendwas anderes einschleusen kann
-    let text = feld.value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+    let text = wert.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 
     // und dann nur die links zu unseren rezepten wieder zu echten links machen
     // target="_blank" damit der link in einem neuen tab aufgeht und das formular nicht weg ist
@@ -33,6 +33,13 @@ function vorschauZeigen(feld) {
     // normale links von anderen webseiten (alles was mit http:// oder https:// anfaengt) werden auch anklickbar
     // der link hoert beim leerzeichen oder anfuehrungszeichen auf, sonst koennte man damit wieder was einschleusen
     text = text.replace(/(https?:\/\/[^\s"']+)/g, '<a href="$1" target="_blank">$1</a>');
+
+    return text;
+}
+
+// vorschau unter dem textfeld, da sieht man die links so wie spaeter im rezept
+function vorschauZeigen(feld) {
+    const text = textUmwandeln(feld.value);
 
     const vorschau = feld.nextElementSibling;
     if (vorschau.tagName === "P" || text === "") {
@@ -103,8 +110,9 @@ document.getElementById("verweis-knopf").addEventListener("click", function () {
 });
 
 // rezeptauswahl zum verlinken mit allen rezepten aus der datenbank fuellen
+// die rest-api laeuft auf einem eigenen server (backend, port 8000)
 $.ajax({
-    url: "/api/rezept/alle",
+    url: "http://localhost:8000/api/rezept/alle",
     method: "GET",
     dataType: "json"
 }).done(function (rezepte) {
@@ -117,4 +125,73 @@ $.ajax({
     }
 }).fail(function () {
     $("#verweis-hinweis").text("Die Rezepte konnten nicht geladen werden.");
-});cd
+});
+
+
+// rezept an den server schicken, aufgebaut wie die beispiele von kuti (ajaxCalls.html, fileUploadSingle.html)
+// der knopf ist type="submit", dadurch prueft der browser vorher selbst ob alle pflichtfelder ausgefuellt sind
+$("#rezept-formular").submit(function (event) {
+    console.log("formular abgeschickt");
+
+    // sonst laedt der browser die seite neu
+    event.preventDefault();
+
+    // die angehakten schutzziele, der value von jedem kaestchen ist die id aus der datenbank
+    const schutzziele = [];
+    for (const box of document.querySelectorAll('input[name="ziel"]:checked')) {
+        schutzziele.push({ "id": Number(box.value) });
+    }
+
+    // bei den links ist die adresse gleichzeitig der titel
+    const links = [];
+    for (const zeile of zeilenLesen("rezept-links")) {
+        links.push({ "titel": zeile, "url": zeile });
+    }
+
+    const obj = {
+        "name": $("#rezept-name").val(),
+        "slogan": $("#rezept-slogan").val(),
+        "kurztext": $("#rezept-kurztext").val(),
+        "definition": textUmwandeln($("#rezept-definition").val()),
+        "schutzziele": schutzziele,
+        "zutaten": punkteLesen("rezept-zutaten"),
+        "schritte": punkteLesen("rezept-schritte"),
+        "tipps": punkteLesen("rezept-tipps"),
+        "links": links
+    };
+
+    $.ajax({
+        url: "http://localhost:8000/api/rezept",
+        method: "post",
+        contentType: "application/json; charset=utf-8",
+        cache: false,
+        data: JSON.stringify(obj)
+    }).done(function (response) {
+        console.log(response);
+        // gleich das neue rezept anzeigen
+        window.location.href = "rezept.html?id=" + response.id;
+    }).fail(function (jqXHR, statusText, error) {
+        console.log("Response Code: " + jqXHR.status + " - Fehlermeldung: " + jqXHR.responseText);
+        $("#hinzufuegen-hinweis").text("Das Rezept konnte nicht gespeichert werden.");
+    });
+});
+
+// alle zeilen aus einem textfeld, leere zeilen fallen weg
+function zeilenLesen(id) {
+    const zeilen = [];
+    for (const zeile of document.getElementById(id).value.split("\n")) {
+        if (zeile.trim() !== "") {
+            zeilen.push(zeile.trim());
+        }
+    }
+    return zeilen;
+}
+
+// zutaten, schritte und tipps: jede zeile wird ein punkt, so wie in der vorschau
+function punkteLesen(id) {
+    const punkte = [];
+    for (const zeile of zeilenLesen(id)) {
+        punkte.push({ "text": textUmwandeln(zeile) });
+    }
+    return punkte;
+}
